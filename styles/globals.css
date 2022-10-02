@@ -21,6 +21,20 @@ a {
   }
   body {
     color: white;
-    background: black;
+    background: #1a1824;
   }
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1rem 0 2rem;
+}
+
+h1 span {
+  background: linear-gradient(0, #857F99 0 50%, transparent 50% 100%);
+  background-size: 120%;
+  background-repeat: no-repeat;
+  display: inline;
+  padding: 0 1rem 0 0.5rem;
 }
