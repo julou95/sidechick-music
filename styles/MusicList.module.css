@@ -1,17 +1,15 @@
 .musicList {
   display: flex;
   flex-direction: column;
-  max-width: 800px;
 }
 
 .musicEntry {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   padding: 0.5rem 1rem 0.5rem 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   background-color: lightgray;
   border-radius: .5rem;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 }
 
 .playIcon {
@@ -21,12 +19,25 @@
   height: 4rem;
   width: 4rem;
   margin-right: 1rem;
-  background-color: black;
+  background-color: #1A1824;
   border-radius: 0.6rem;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .playIcon:hover {
   cursor: pointer;
+}
+
+.active {
+  background-color: #A63D40;
+  /* box-shadow: inset 0px 0px 5px 0px #CCCCCC, 0px 0px 3px 0px rgba(227,0,0,0.75); */
+  /* box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px; */
+  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
+}
+
+.playIcon svg {
+  fill: white;
 }
 
 .song {
@@ -34,31 +45,64 @@
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-  height: 4rem;
 }
 
 .titleHead {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .duration {
   display: flex;
   justify-content: space-between;
-  font-size: 10px;
+  margin-bottom: 0.3rem;
+  font-size: 0.75rem;
 }
 
 .progressbar {
-  height: 5px;
+  height: 0.4rem;
   width: 100%;
   border-radius: 3px;
   background-color: rgb(207, 188, 188);
 }
 
 .progress {
-  height: 5px;
+  height: 0.4rem;
   widtH: 0%;
   border-radius: 3px;
   background-color: brown;
+}
+
+.iconList {
+  display: flex;
+}
+
+.iconList svg {
+  fill: #8b8b8b;
+  margin-left: 0.5rem;
+}
+
+
+@media screen and (min-width: 700px) {
+  .playIcon {
+    height: 6rem;
+    width: 6rem;
+  }
+
+  .titleHead {
+    font-size: 1.5rem;
+  }
+  .progress, .progressbar {
+    height: 0.5rem;
+  }
+  .duration {
+    font-size: 1rem;
+  }
+  .playIcon svg {
+    height: 4rem;
+    width: 4rem;
+  }
 }

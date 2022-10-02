@@ -12,11 +12,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className={styles.header}>
-        <div className={styles.logo}>
-          <Icons name="note" fill="#0D0B15" />
-        </div>
-        <div className={styles.title}>
-          SideChick Jukebox
+        <div className={styles.innerHeader}>
+          <div className={styles.logo}>
+            <Icons name="note" fill="#0D0B15" />
+          </div>
+          <div className={styles.title}>
+            SideChick Jukebox
+          </div>
         </div>
       </header>
       <main className={styles.main}>

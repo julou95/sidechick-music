@@ -67,26 +67,38 @@ export default function MusicEntry({ entry }) {
 
   return (
     <div className={styles.musicEntry}>
-      <div className={styles.playIcon} onClick={playPause}>
+      <div className={`${styles.playIcon} ${isPlaying ? styles.active : ''}`} onClick={playPause}>
         <Icons name={isPlaying ? 'pause' : 'play'} />
       </div>
       <div className={styles.song}>
         <div className={styles.titleHead}>
           <div>{entry.title}</div>
-          <div>
-            <Icons name="reset" size="26" fill="black" clickAction={reset} />
-            <Icons name="replay" size="26" fill={isLooped ? 'brown' : 'black'} clickAction={setLoop}/>
+          <div className={styles.iconList}>
+            <Icons
+              name="reset"
+              size="26"
+              clickAction={reset}
+            />
+            <Icons
+              name={isLooped ? 'replayOn' : 'replayOff'}
+              size="26"
+              clickAction={setLoop}
+              active={isLooped}
+            />
           </div>
         </div>
         <audio id={`audio-${entry.id}`} onTimeUpdate={onProgress} onPause={onPause} preload="auto">
           <source src={entry.file} type="audio/mpeg" />
         </audio>
+        <div>
+
         <div className={styles.duration}>
           <div>{duration ? duration : ''}</div>
           <div>{entry.duration}</div>
         </div>
         <div id={`progressWrapper-${entry.id}`} onClick={clickProgress} className={styles.progressbar}>
           <div id={`progress-${entry.id}`} className={styles.progress}></div>
+        </div>
         </div>
       </div>
     </div>
