@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import MusicList from '../app/components/MusicList/MusicList'
+import Icons from '../app/components/Icons/Icons'
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
       </Head>
       <header className={styles.header}>
         <div className={styles.logo}>
-          
+          <Icons name="note" size="75" />
         </div>
         <div className={styles.title}>
           SideChick Jukebox
