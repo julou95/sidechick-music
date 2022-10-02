@@ -19,7 +19,6 @@ export default function Home() {
         </div>
       </header>
       <main className={styles.main}>
-
         <MusicList type="DEMO" />
         <MusicList type="INST" />
         <MusicList type="SINGLE" />

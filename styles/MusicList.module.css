@@ -15,11 +15,18 @@
 }
 
 .playIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 4rem;
   width: 4rem;
   margin-right: 1rem;
   background-color: black;
   border-radius: 0.6rem;
+}
+
+.playIcon:hover {
+  cursor: pointer;
 }
 
 .song {
