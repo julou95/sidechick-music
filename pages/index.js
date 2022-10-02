@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import MusicList from '../app/components/MusicList/MusicList'
 
@@ -7,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>SideChick's Jukebox</title>
+        <title>SideChicks Jukebox</title>
         <meta name="description" content="SideChick Jukebox - all our songs and demos" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
