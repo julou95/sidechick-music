@@ -13,7 +13,7 @@ export default function Home() {
       </Head>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <Icons name="note" size="75" />
+          <Icons name="note" fill="#0D0B15" />
         </div>
         <div className={styles.title}>
           SideChick Jukebox

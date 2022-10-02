@@ -16,9 +16,13 @@
 }
 
 .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 4rem;
   width: 4rem;
   margin-right: 1rem;
+  border-radius: 2rem;
   background-color: #e7e7e7;
 }
 

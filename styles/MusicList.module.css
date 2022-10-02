@@ -35,12 +35,30 @@
   justify-content: space-between;
   flex-grow: 1;
   height: 4rem;
-  padding-top: 5px;
+}
+
+.titleHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .duration {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+}
+
+.progressbar {
   height: 5px;
   width: 100%;
-  background-color: brown;
   border-radius: 3px;
+  background-color: rgb(207, 188, 188);
+}
+
+.progress {
+  height: 5px;
+  widtH: 0%;
+  border-radius: 3px;
+  background-color: brown;
 }
