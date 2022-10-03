@@ -16,7 +16,6 @@ export default function MusicEntry({ entry }) {
     } else {
       document.querySelectorAll('audio').forEach(el => el.pause());
       el.play()
-      setIsPlaying(true)
     }
   }
 
@@ -70,6 +69,20 @@ export default function MusicEntry({ entry }) {
     navigator.clipboard.writeText(entry.lyrics);
   }
 
+  const hasEnded = (e) => {
+    if (!isLooped) {
+      e.target.currentTime = 0;
+      const el = document.getElementById(`audio-${entry.id+1}`)
+      if (el) {
+        el.play()
+      }
+    }
+  }
+
+  const startAudio = () => {
+    setIsPlaying(true)
+  }
+
   return (
     <div className={`${styles.musicEntry} ${isPlaying ? styles.active : ''}`}>
       <div className={styles.mainEntry}>
@@ -88,7 +101,7 @@ export default function MusicEntry({ entry }) {
               </a>
             </div>
           </div>
-          <audio id={`audio-${entry.id}`} onTimeUpdate={onProgress} onPause={onPause} preload="auto">
+          <audio id={`audio-${entry.id}`} onTimeUpdate={onProgress} onPause={onPause} onPlay={startAudio} preload="auto" onEnded={hasEnded}>
             <source src={entry.file} type="audio/mpeg" />
           </audio>
           <div className={styles.durationWrapper}>
