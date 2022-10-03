@@ -75,6 +75,8 @@ export default function MusicEntry({ entry }) {
       const el = document.getElementById(`audio-${entry.id+1}`)
       if (el) {
         el.play()
+      } else {
+        document.getElementById('audio-0').play()
       }
     }
   }
@@ -92,7 +94,7 @@ export default function MusicEntry({ entry }) {
         <div className={styles.song}>
           <div className={styles.titleHead}>
             <div onClick={() => setShowMore(prev => !prev)} className={styles.songTitle}>{entry.title}</div>
-            <div className={styles.iconList}>
+            <div className={styles.download}>
               <a href={entry.file} target="_blank">
                 <Icons
                   name="download"
@@ -121,12 +123,12 @@ export default function MusicEntry({ entry }) {
                 <div id={`progress-${entry.id}`} className={`${styles.progress} ${isPlaying ? styles.activeProgress : ''}`}></div>
               </div>
             </div>
-            <div className={styles.repeat}>
+            <div className={`${styles.repeat} ${isLooped ? styles.loopActive : ''}`}>
               <Icons
-                name={isLooped ? 'replayOn' : 'replayOff'}
-                size="28"
+                name="replayOff"
+                size="24"
                 clickAction={setLoop}
-                active={isLooped}
+                // active={isLooped}
               />
             </div>
           </div>

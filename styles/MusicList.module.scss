@@ -67,7 +67,7 @@
   height: 4rem;
   width: 4rem;
   margin-right: 0.5rem;
-  background-color: rgb(62 56 87);
+  background-color: #3e3857;
   border-radius: 0.5rem;
   box-shadow: rgb(0 0 0 / 40%) 0px 2px 4px, rgb(0 0 0 / 30%) 0px 7px 13px -3px, #1A1824 0px -6px 0px inset;
 }
@@ -122,20 +122,11 @@
   height: 0.4rem;
   widtH: 0%;
   border-radius: 3px;
-  background-color: #141317;
+  background-color: #3e3857;
 }
 
 .activeProgress {
   background-color: #A63D3F;
-}
-
-.iconList {
-  display: flex;
-}
-
-.iconList svg {
-  fill: #4e4e4e;
-  margin-left: 0.5rem;
 }
 
 .active {
@@ -155,17 +146,45 @@
   flex-grow: 1;
 }
 
+.reset, .repeat, .download {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dddddd;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.reset svg, .repeat svg {
+  fill: #4e4e4e;
+}
+
 .repeat {
   margin-left: 0.5rem;
+}
+
+.loopActive {
+  background-color: #3e3857;
+  svg {
+    fill: white;
+  }
+}
+
+.active {
+  .loopActive {
+    background-color: #A63D3F;
+    svg {
+      fill: white;
+    }
+  }
 }
 
 .reset {
   margin-right: 0.5rem
 }
 
-.reset svg, .repeat svg {
-  fill: #4e4e4e;
-}
 
 @media screen and (min-width: 700px) {
   .playIcon {
