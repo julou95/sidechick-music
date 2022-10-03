@@ -75,7 +75,7 @@ export default function MusicEntry({ entry }) {
         </div>
         <div className={styles.song}>
           <div className={styles.titleHead}>
-            <div onClick={() => setShowMore(prev => !prev)}>{entry.title}</div>
+            <div onClick={() => setShowMore(prev => !prev)} className={styles.songTitle}>{entry.title}</div>
             <div className={styles.iconList}>
               <a href={entry.file} target="_blank">
                 <Icons

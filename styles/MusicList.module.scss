@@ -1,6 +1,7 @@
 .musicList {
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 .musicEntry {
@@ -44,6 +45,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
   height: 4rem;
   width: 4rem;
   margin-right: 0.5rem;
@@ -74,6 +76,13 @@
   align-items: center;
   font-size: 1.1rem;
   font-weight: 500;
+}
+
+.songTitle {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .duration {
@@ -145,6 +154,7 @@
   .playIcon {
     height: 6rem;
     width: 6rem;
+    margin-right: 1rem;
   }
 
   .titleHead {
