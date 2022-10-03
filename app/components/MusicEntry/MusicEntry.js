@@ -104,7 +104,7 @@ export default function MusicEntry({ entry }) {
             </div>
           </div>
           <audio id={`audio-${entry.id}`} onTimeUpdate={onProgress} onPause={onPause} onPlay={startAudio} preload="auto" onEnded={hasEnded}>
-            <source src={entry.file} type="audio/mpeg" />
+            <source src={`/audio${entry.file}`} type="audio/mpeg" />
           </audio>
           <div className={styles.durationWrapper}>
             <div className={styles.reset}>
