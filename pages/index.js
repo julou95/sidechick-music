@@ -22,9 +22,9 @@ export default function Home() {
         </div>
       </header>
       <main className={styles.main}>
-        <MusicList type="DEMO" />
+        <MusicList type="SONG" />
         <MusicList type="INST" />
-        <MusicList type="SINGLE" />
+        <MusicList type="IDEA" />
       </main>
     </>
   )

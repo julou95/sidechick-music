@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Icons from '../Icons/Icons';
-import styles from '../../../styles/MusicList.module.css'
+import styles from '../../../styles/MusicList.module.scss'
 
 export default function MusicEntry({ entry }) {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -66,8 +66,8 @@ export default function MusicEntry({ entry }) {
   }
 
   return (
-    <div className={styles.musicEntry}>
-      <div className={`${styles.playIcon} ${isPlaying ? styles.active : ''}`} onClick={playPause}>
+    <div className={`${styles.musicEntry} ${isPlaying ? styles.active : ''}`}>
+      <div className={styles.playIcon} onClick={playPause}>
         <Icons name={isPlaying ? 'pause' : 'play'} />
       </div>
       <div className={styles.song}>
@@ -96,8 +96,8 @@ export default function MusicEntry({ entry }) {
           <div>{duration ? duration : ''}</div>
           <div>{entry.duration}</div>
         </div>
-        <div id={`progressWrapper-${entry.id}`} onClick={clickProgress} className={styles.progressbar}>
-          <div id={`progress-${entry.id}`} className={styles.progress}></div>
+        <div id={`progressWrapper-${entry.id}`} onClick={clickProgress} className={`${styles.progressbar} ${isPlaying ? styles.activeProgressbar : ''}`}>
+          <div id={`progress-${entry.id}`} className={`${styles.progress} ${isPlaying ? styles.activeProgress : ''}`}></div>
         </div>
         </div>
       </div>

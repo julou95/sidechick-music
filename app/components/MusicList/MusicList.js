@@ -1,10 +1,10 @@
-import styles from '../../../styles/MusicList.module.css'
+import styles from '../../../styles/MusicList.module.scss'
 import MusicEntry from '../MusicEntry/MusicEntry'
 
 const types = {
-  DEMO: 'Demos',
   INST: 'Instrumentals',
-  SINGLE: 'Songs'
+  SONG: 'Songs',
+  IDEA: 'Ideas',
 }
 
 const musicList = [
@@ -17,7 +17,7 @@ const musicList = [
   },
   {
     id: 1,
-    type: 'DEMO',
+    type: 'SONG',
     title: 'Never See You Again',
     file: '/NeverSeeYou.mp3',
     duration: '02:48'
@@ -39,9 +39,37 @@ const musicList = [
   {
     id: 4,
     type: 'INST',
-    title: 'Never See You Again (Inst)',
+    title: 'Never See You Again',
     file: '/NeverSeeYouAgain(inst).mp3',
     duration: '02:48'
+  },
+  {
+    id: 5,
+    type: 'IDEA',
+    title: 'Samelöser',
+    file: '/sameloeser.mp3',
+    duration: '03:07'
+  },
+  {
+    id: 6,
+    type: 'INST',
+    title: 'Get High',
+    file: '/Get_High_4.mp3',
+    duration: '03:55',
+  },
+  {
+    id: 7,
+    type: 'SONG',
+    title: 'Stranger (fm&u)',
+    file: '/fmay.mp3',
+    duration: '05:13'
+  },
+  {
+    id: 8,
+    type: 'IDEA',
+    title: 'Easy Breaze',
+    file: '/easyBreaze.mp3',
+    duration: '03:59'
   },
 ]
 
