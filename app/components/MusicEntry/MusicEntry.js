@@ -66,6 +66,9 @@ export default function MusicEntry({ entry }) {
     el.currentTime = el.duration / 100 * ratio
   }
 
+  const copyLyrics = () => {
+    navigator.clipboard.writeText(entry.lyrics);
+  }
 
   return (
     <div className={`${styles.musicEntry} ${isPlaying ? styles.active : ''}`}>
@@ -121,6 +124,9 @@ export default function MusicEntry({ entry }) {
           <div id={`lyrics-${entry.id}`} className={`${styles.more} ${showMore ? styles.show : ''}`}>
             <div className={styles.innerWrapper}>
               {entry.lyrics}
+              <div className={styles.copyLyrics} onClick={copyLyrics}>
+                <Icons name="copy" size="26" />
+              </div>
             </div>
           </div>
       }

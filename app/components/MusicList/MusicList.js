@@ -21,7 +21,7 @@ const musicList = [
     title: 'Never See You Again',
     file: '/NeverSeeYou.mp3',
     duration: '02:48',
-    lyrics: '[verse 1]\n never see you again,\nrunning through the dark,\nand I get blinded by the light,\nof your heart,\nstruggeling cause i don\'t \n even know where to start, \n why are you making this at me so hard? \n\n [chorus] \n denied everything this whole time \n guess things were fine \n denied everything this whole time \n i guess you thought, things were fine \n\n [verse 2] \n never catch you again \n cause you\'re way too far \n you don\'t wanna be closer, \n i can\'t stay apart \n you cut my heart out my chest \n and put it in a char \n never see you again \n running through the dark \n\n [chorus] \n denied everything this whole time \n guess things were fine \n denied everything this whole time \n guess you thought, things were fine',
+    lyrics: '[verse 1]\n never see you again,\nrunning through the dark,\nand I get blinded by the light,\nof your heart,\nstruggling cause I don\'t \n even know where to start, \n why are you making this at me so hard? \n\n [chorus] \n denied everything this whole time \n I guess things were fine \n denied everything this whole time \n I guess you thought, things were fine \n\n [verse 2] \n never catch you again \n cause you\'re way too far \n you don\'t wanna be closer, \n I can\'t stay apart \n you cut my heart out my chest \n and put it in a char \n never see you again \n running through the dark \n\n [chorus] \n denied everything this whole time \n I guess things were fine \n denied everything this whole time \n I guess you thought, things were fine',
   },
   {
     id: 2,

@@ -38,3 +38,7 @@ h1 span {
   display: inline;
   padding: 0 1rem 0 0.5rem;
 }
+
+svg {
+  cursor: pointer;
+}
