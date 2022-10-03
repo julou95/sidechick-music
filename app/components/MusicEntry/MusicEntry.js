@@ -6,6 +6,7 @@ export default function MusicEntry({ entry }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [duration, setDuration] = useState('00:00')
   const [isLooped, setIsLooped] = useState(false)
+  const [showMore, setShowMore] = useState(false)
 
 
   const playPause = () => {
@@ -65,42 +66,64 @@ export default function MusicEntry({ entry }) {
     el.currentTime = el.duration / 100 * ratio
   }
 
+
   return (
     <div className={`${styles.musicEntry} ${isPlaying ? styles.active : ''}`}>
-      <div className={styles.playIcon} onClick={playPause}>
-        <Icons name={isPlaying ? 'pause' : 'play'} />
-      </div>
-      <div className={styles.song}>
-        <div className={styles.titleHead}>
-          <div>{entry.title}</div>
-          <div className={styles.iconList}>
-            <Icons
-              name="reset"
-              size="26"
-              clickAction={reset}
-            />
-            <Icons
-              name={isLooped ? 'replayOn' : 'replayOff'}
-              size="26"
-              clickAction={setLoop}
-              active={isLooped}
-            />
+      <div className={styles.mainEntry}>
+        <div className={styles.playIcon} onClick={playPause}>
+          <Icons name={isPlaying ? 'pause' : 'play'} />
+        </div>
+        <div className={styles.song}>
+          <div className={styles.titleHead}>
+            <div onClick={() => setShowMore(prev => !prev)}>{entry.title}</div>
+            <div className={styles.iconList}>
+              <a href={entry.file} target="_blank">
+                <Icons
+                  name="download"
+                  size="26"
+                />
+              </a>
+            </div>
+          </div>
+          <audio id={`audio-${entry.id}`} onTimeUpdate={onProgress} onPause={onPause} preload="auto">
+            <source src={entry.file} type="audio/mpeg" />
+          </audio>
+          <div className={styles.durationWrapper}>
+            <div className={styles.reset}>
+              <Icons
+                name="reset"
+                size="28"
+                clickAction={reset}
+              />
+            </div>
+            <div className={styles.progressWrapper}>
+              <div className={styles.duration}>
+                <div>{duration ? duration : ''}</div>
+                <div>{entry.duration}</div>
+              </div>
+              <div id={`progressWrapper-${entry.id}`} onClick={clickProgress} className={`${styles.progressbar} ${isPlaying ? styles.activeProgressbar : ''}`}>
+                <div id={`progress-${entry.id}`} className={`${styles.progress} ${isPlaying ? styles.activeProgress : ''}`}></div>
+              </div>
+            </div>
+            <div className={styles.repeat}>
+              <Icons
+                name={isLooped ? 'replayOn' : 'replayOff'}
+                size="28"
+                clickAction={setLoop}
+                active={isLooped}
+              />
+            </div>
           </div>
         </div>
-        <audio id={`audio-${entry.id}`} onTimeUpdate={onProgress} onPause={onPause} preload="auto">
-          <source src={entry.file} type="audio/mpeg" />
-        </audio>
-        <div>
-
-        <div className={styles.duration}>
-          <div>{duration ? duration : ''}</div>
-          <div>{entry.duration}</div>
-        </div>
-        <div id={`progressWrapper-${entry.id}`} onClick={clickProgress} className={`${styles.progressbar} ${isPlaying ? styles.activeProgressbar : ''}`}>
-          <div id={`progress-${entry.id}`} className={`${styles.progress} ${isPlaying ? styles.activeProgress : ''}`}></div>
-        </div>
-        </div>
       </div>
+      {
+        entry.lyrics &&
+          <div id={`lyrics-${entry.id}`} className={`${styles.more} ${showMore ? styles.show : ''}`}>
+            <div className={styles.innerWrapper}>
+              {entry.lyrics}
+            </div>
+          </div>
+      }
     </div>
   )
 }

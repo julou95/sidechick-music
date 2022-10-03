@@ -5,11 +5,39 @@
 
 .musicEntry {
   display: flex;
-  padding: 0.5rem 1rem 0.5rem 0.5rem;
+  flex-direction: column;
+  padding: 0.5rem;
   margin-bottom: 0.5rem;
   background-color: lightgray;
   border-radius: .5rem;
   box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+
+.mainEntry {
+  display: flex;
+}
+
+.more {
+  white-space: pre-line; /* or pre-line */
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+  color: transparent;
+  transition: line-height 0.2s ease-in-out, color 0.1s 0.2s ease-in-out;
+}
+
+.show {
+  line-height: 1.1;
+  height: 100%;
+  color: black;
+}
+
+.innerWrapper {
+  position: relative;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: .5rem;
+  background-color: #E7E7E7;
 }
 
 .playIcon {
@@ -82,7 +110,7 @@
 }
 
 .iconList svg {
-  fill: #8b8b8b;
+  fill: #4e4e4e;
   margin-left: 0.5rem;
 }
 
@@ -92,6 +120,26 @@
   }
 }
 
+.durationWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.progressWrapper {
+  flex-grow: 1;
+}
+
+.repeat {
+  margin-left: 0.5rem;
+}
+
+.reset {
+  margin-right: 0.5rem
+}
+
+.reset svg, .repeat svg {
+  fill: #4e4e4e;
+}
 
 @media screen and (min-width: 700px) {
   .playIcon {
