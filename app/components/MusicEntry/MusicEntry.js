@@ -95,7 +95,7 @@ export default function MusicEntry({ entry }) {
           <div className={styles.titleHead}>
             <div onClick={() => setShowMore(prev => !prev)} className={styles.songTitle}>{entry.title}</div>
             <div className={styles.download}>
-              <a href={entry.file} target="_blank">
+              <a href={`/audio${entry.file}`} target="_blank">
                 <Icons
                   name="download"
                   size="26"
@@ -128,7 +128,6 @@ export default function MusicEntry({ entry }) {
                 name="replayOff"
                 size="24"
                 clickAction={setLoop}
-                // active={isLooped}
               />
             </div>
           </div>
