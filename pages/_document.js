@@ -8,6 +8,7 @@ class MyDocument extends Document {
           <link rel="manifest" href="/manifest.json" />
           <link rel="apple-touch-icon" href="/logos/maskable_icon_x96.png"></link>
           <meta name="theme-color" content="#0c0b15" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         </Head>
         <body>
           <Main />
