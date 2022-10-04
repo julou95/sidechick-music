@@ -118,7 +118,7 @@ export const getNextId = (currentId) => {
 }
 export const getPreviousId = (currentId) => {
   const currentIndex = songs.findIndex(song => song.id === currentId)
-  if (currentIndex - 1 <= 0) return songs[0].id
+  if (currentIndex - 1 < 0) return songs[songs.length-1].id
   return songs[currentIndex - 1].id;
 }
 
