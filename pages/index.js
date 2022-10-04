@@ -15,7 +15,7 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.innerHeader}>
           <div className={styles.logo}>
-            <Image src="/logo.png" className={styles.logoImg} height="75" width="" />
+            <Image src="/logo.png" className={styles.logoImg} height="75" width="75" />
           </div>
           <div className={styles.title}>
             SideChick Jukebox
