@@ -92,6 +92,7 @@ export default function MusicList({ songId, setSongId }) {
   const copyText = () => {
     navigator.clipboard.writeText(getSongInfo(songId).lyrics)
   }
+
   return (
     <>
       {
