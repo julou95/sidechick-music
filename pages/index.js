@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import MusicList from '@/components/MusicList/MusicList'
 
@@ -14,7 +15,7 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.innerHeader}>
           <div className={styles.logo}>
-            <img src="/logo.png" className={styles.logoImg} />
+            <Image src="/logo.png" className={styles.logoImg} height="75" width="" />
           </div>
           <div className={styles.title}>
             SideChick Jukebox
