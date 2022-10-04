@@ -1,42 +1,40 @@
-import { useState } from 'react';
-import Icons from '../Icons/Icons';
-import styles from '../../../styles/MusicList.module.scss'
+import { useState, useRef } from 'react';
+import Icons from '@/components/Icons/Icons';
+import styles from '@/styles/MusicList.module.scss'
+import { getNextId } from '@/constants/songList'
 
 export default function MusicEntry({ entry }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [duration, setDuration] = useState('00:00')
   const [isLooped, setIsLooped] = useState(false)
   const [showMore, setShowMore] = useState(false)
+  const audioRef = useRef()
+  const pbRef = useRef()
 
 
   const playPause = () => {
-    const el = document.getElementById(`audio-${entry.id}`)
     if (isPlaying) {
-      el.pause()
+      audioRef.current.pause()
     } else {
       document.querySelectorAll('audio').forEach(el => el.pause());
-      el.play()
+      audioRef.current.play()
     }
   }
 
   const onPause = () => {
-    const el = document.getElementById(`audio-${entry.id}`)
-    
     if (!isPlaying) {
-      el.currentTime = 0
+      audioRef.current.currentTime = 0
     }
     setIsPlaying(false)
   }
 
-  const onProgress = (e) => {
-    const pb = document.getElementById(`progress-${entry.id}`)
-    const el = document.getElementById(`audio-${entry.id}`)
-    const elDuration = el.duration
-    const currentTime = el.currentTime
+  const onProgress = () => {
+    const elDuration = audioRef.current.duration
+    const currentTime = audioRef.current.currentTime
     const progress = 100 / elDuration * currentTime
 
     setDuration(calculateCurrentValue(currentTime))
-    pb.style.width = `${progress}%`
+    pbRef.current.style.width = `${progress}%`
   }
 
   function calculateCurrentValue(currentTime) {
@@ -48,35 +46,31 @@ export default function MusicEntry({ entry }) {
   }
 
   const reset = () => {
-    const el = document.getElementById(`audio-${entry.id}`)
-    el.currentTime = 0
+    audioRef.current.currentTime = 0
   }
+
   const setLoop = () => {
-    const el = document.getElementById(`audio-${entry.id}`)
-    el.loop = !el.loop
+    audioRef.current.loop = !audioRef.current.loop
     setIsLooped(prev => !prev)
   }
 
   const clickProgress = (e) => {
-    const el = document.getElementById(`audio-${entry.id}`)
     let bounds = document.getElementById(`progressWrapper-${entry.id}`).getBoundingClientRect();
     let x = e.clientX - bounds.left;
     const ratio = 100 / bounds.width * x;
-    el.currentTime = el.duration / 100 * ratio
+    audioRef.current.currentTime = audioRef.current.duration / 100 * ratio
   }
 
   const copyLyrics = () => {
     navigator.clipboard.writeText(entry.lyrics);
   }
 
-  const hasEnded = (e) => {
+  const hasEnded = () => {
     if (!isLooped) {
-      e.target.currentTime = 0;
-      const el = document.getElementById(`audio-${entry.id+1}`)
+      audioRef.current.currentTime = 0;
+      const el = document.getElementById(`audio-${getNextId(entry.id)}`)
       if (el) {
         el.play()
-      } else {
-        document.getElementById('audio-0').play()
       }
     }
   }
@@ -93,7 +87,12 @@ export default function MusicEntry({ entry }) {
         </div>
         <div className={styles.song}>
           <div className={styles.titleHead}>
-            <div onClick={() => setShowMore(prev => !prev)} className={styles.songTitle}>{entry.title}</div>
+            <div
+              onClick={() => setShowMore(prev => !prev)}
+              className={styles.songTitle}
+            >
+              {entry.title}
+            </div>
             <div className={styles.download}>
               <a href={`/audio${entry.file}`} target="_blank">
                 <Icons
@@ -103,7 +102,15 @@ export default function MusicEntry({ entry }) {
               </a>
             </div>
           </div>
-          <audio id={`audio-${entry.id}`} onTimeUpdate={onProgress} onPause={onPause} onPlay={startAudio} preload="auto" onEnded={hasEnded}>
+          <audio
+            id={`audio-${entry.id}`}
+            ref={audioRef}
+            onTimeUpdate={onProgress}
+            onPause={onPause}
+            onPlay={startAudio}
+            preload="auto"
+            onEnded={hasEnded}
+          >
             <source src={`/audio${entry.file}`} type="audio/mpeg" />
           </audio>
           <div className={styles.durationWrapper}>
@@ -119,8 +126,16 @@ export default function MusicEntry({ entry }) {
                 <div>{duration ? duration : ''}</div>
                 <div>{entry.duration}</div>
               </div>
-              <div id={`progressWrapper-${entry.id}`} onClick={clickProgress} className={`${styles.progressbar} ${isPlaying ? styles.activeProgressbar : ''}`}>
-                <div id={`progress-${entry.id}`} className={`${styles.progress} ${isPlaying ? styles.activeProgress : ''}`}></div>
+              <div
+                id={`progressWrapper-${entry.id}`}
+                onClick={clickProgress}
+                className={`${styles.progressbar} ${isPlaying ? styles.activeProgressbar : ''}`}
+              >
+                <div
+                  id={`progress-${entry.id}`}
+                  ref={pbRef}
+                  className={`${styles.progress} ${isPlaying ? styles.activeProgress : ''}`}
+                />
               </div>
             </div>
             <div className={`${styles.repeat} ${isLooped ? styles.loopActive : ''}`}>
@@ -135,7 +150,10 @@ export default function MusicEntry({ entry }) {
       </div>
       {
         entry.lyrics &&
-          <div id={`lyrics-${entry.id}`} className={`${styles.more} ${showMore ? styles.show : ''}`}>
+          <div
+            id={`lyrics-${entry.id}`}
+            className={`${styles.more} ${showMore ? styles.show : ''}`}
+          >
             <div className={styles.innerWrapper}>
               {entry.lyrics}
               <div className={styles.copyLyrics} onClick={copyLyrics}>

@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import MusicList from '../app/components/MusicList/MusicList'
-import Icons from '../app/components/Icons/Icons'
+import styles from '@/styles/Home.module.css'
+import MusicList from '@/components/MusicList/MusicList'
 
 export default function Home() {
+
   return (
     <>
       <Head>
