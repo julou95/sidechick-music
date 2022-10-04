@@ -1,10 +1,12 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import MusicList from '@/components/MusicList/MusicList'
+import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
 
 export default function Home() {
-
+  const [currentSong, setCurrentSong] = useState()
   return (
     <>
       <Head>
@@ -23,10 +25,14 @@ export default function Home() {
         </div>
       </header>
       <main className={styles.main}>
-        <MusicList type="SONG" />
-        <MusicList type="INST" />
-        <MusicList type="IDEA" />
+        <MusicList type="SONG" setCurrentSong={setCurrentSong} currentSong={currentSong} />
+        <MusicList type="INST" setCurrentSong={setCurrentSong} currentSong={currentSong} />
+        <MusicList type="IDEA" setCurrentSong={setCurrentSong} currentSong={currentSong} />
       </main>
+      {
+        currentSong &&
+          <MusicPlayer songId={currentSong} setSongId={setCurrentSong} />
+      }
     </>
   )
 }

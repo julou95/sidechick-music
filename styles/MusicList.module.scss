@@ -7,9 +7,8 @@
 .musicEntry {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  background-color: lightgray;
+  margin-bottom: 0.3rem;
+  background-color: #f7f7f7;
   border-radius: .5rem;
   box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
   user-select: none;
@@ -64,13 +63,11 @@
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  height: 74px;
-  width: 74px;
+  height: 45px;
+  width: 45px;
   margin-right: 0.5rem;
-  padding-bottom: 5px;
   background-color: #3e3857;
   border-radius: 0.5rem;
-  box-shadow: rgb(0 0 0 / 40%) 0px 2px 4px, rgb(0 0 0 / 30%) 0px 7px 13px -3px, #1A1824 0px -6px 0px inset;
 }
 
 .playIcon:hover {
@@ -83,8 +80,7 @@
 
 .song {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
   flex-grow: 1;
 }
 
@@ -102,90 +98,10 @@
   cursor: pointer;
 }
 
-.duration {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.3rem;
-  font-size: 0.75rem;
-}
-
-.progressbar {
-  height: 0.4rem;
-  width: 100%;
-  border-radius: 3px;
-  background-color: #bfbccf;
-}
-
-.activeProgressbar {
-  background-color: rgb(207, 188, 188);
-}
-
-.progress {
-  height: 0.4rem;
-  widtH: 0%;
-  border-radius: 3px;
-  background-color: #3e3857;
-}
-
-.activeProgress {
-  background-color: #A63D3F;
-}
-
 .active {
   .playIcon {
     background-color: #A63D40;
-    box-shadow: rgb(155 155 155) 0px 4px 0px inset, rgb(0 0 0 / 26%) 0px -4px 9px inset;
-    padding-top: 5px;
-    padding-bottom: 0;
   }
-}
-
-.durationWrapper {
-  display: flex;
-  align-items: center;
-}
-
-.progressWrapper {
-  flex-grow: 1;
-}
-
-.reset, .repeat, .download {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #dddddd;
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-}
-
-.reset svg, .repeat svg {
-  fill: #4e4e4e;
-}
-
-.repeat {
-  margin-left: 0.5rem;
-}
-
-.loopActive {
-  background-color: #3e3857;
-  svg {
-    fill: white;
-  }
-}
-
-.active {
-  .loopActive {
-    background-color: #A63D3F;
-    svg {
-      fill: white;
-    }
-  }
-}
-
-.reset {
-  margin-right: 0.5rem
 }
 
 

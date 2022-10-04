@@ -8,7 +8,7 @@ const types = {
   IDEA: 'Ideas',
 }
 
-export default function MusicList({ type }) {
+export default function MusicList({ type, setCurrentSong, currentSong }) {
   const filtered = songs
     .filter((entry) => entry.type === type)
   return (
@@ -16,7 +16,14 @@ export default function MusicList({ type }) {
       {filtered.length ? <h1><span>{types[type]}</span></h1> : ''}
       {
         filtered
-          .map((entry, index) => <MusicEntry entry={entry} key={index} />)
+          .map((entry, index) =>
+            <MusicEntry
+              entry={entry}
+              key={index}
+              setCurrentSong={setCurrentSong}
+              currentSong={currentSong}
+            />
+          )
       }
     </div> 
   )

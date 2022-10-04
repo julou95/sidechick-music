@@ -39,6 +39,15 @@ h1 span {
   padding: 0 1rem 0 0.5rem;
 }
 
+h3 span {
+  background: linear-gradient(0, #857F99 0 50%, transparent 50% 100%);
+  background-size: 120%;
+  background-repeat: no-repeat;
+  display: inline;
+  padding: 0 1rem 0 0.5rem;
+}
+
+
 svg {
   cursor: pointer;
 }
