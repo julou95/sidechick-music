@@ -117,7 +117,6 @@ export default function MusicList({ songId, setSongId }) {
                 </div>
               </div>
               <div className={styles.lyrics}>
-                <h4>Info</h4>
                 <div className={styles.metaInfo}>
                   <div><Icons name="clock" size="20" />{getSongInfo(songId).duration}</div>
                   <div><Icons name="metronome" size="20" viewBox="24" />{getSongInfo(songId).bpm}</div>
@@ -144,10 +143,11 @@ export default function MusicList({ songId, setSongId }) {
             onPlay={startAudio}
             preload="auto"
             onEnded={hasEnded}
+            playbackRate={2}
           >
             <source ref={sourceRef} src={getSongInfo(songId).file} type="audio/mpeg" />
           </audio>
-          <div className={styles.actionWrapper}>
+          <div className={styles.infoWrapper}>
             <div className={styles.playActions}>
               <div className={styles.actionButton} onClick={prev}>
                 <Icons name="prev" size="30" />
@@ -158,22 +158,19 @@ export default function MusicList({ songId, setSongId }) {
               <div className={styles.actionButton} onClick={next}>
                 <Icons name="next" size="30" />
               </div>
-            <div className={`${styles.loop} ${isLooped ? styles.active : ''}`} onClick={() => setIsLooped(prev => !prev)}>
-              <Icons name="replayOff" size="15" />
             </div>
+            <div className={styles.songInfo}>
+              <div className={`${styles.songName} ${ isExpanded ? styles.expanded : '' }`} onClick={toggleInfo}>
+                {getSongInfo(songId).title}
+                <Icons name="expand" size="22" />
+              </div>
             </div>
           </div>
-          <div className={styles.songInfo}>
-            <div className={`${styles.songName} ${ isExpanded ? styles.expanded : '' }`} onClick={toggleInfo}>
-              {getSongInfo(songId).title}
-              <Icons name="expand" size="22" />
-            </div>
-            <div className={styles.durationWrapper}>
+          <div className={styles.durationWrapper}>
+              <div className={`${styles.loop} ${isLooped ? styles.active : ''}`} onClick={() => setIsLooped(prev => !prev)}>
+                <Icons name="replayOff" size="15" />
+              </div>
               <div className={styles.progressWrapper}>
-                <div className={styles.duration}>
-                  <div>{duration ? duration : ''}</div>
-                  <div>{getSongInfo(songId).duration}</div>
-                </div>
                 <div
                   id="progressWrapper"
                   onClick={clickProgress}
@@ -185,10 +182,10 @@ export default function MusicList({ songId, setSongId }) {
                     className={styles.progress}
                     />
                 </div>
+                <div className={styles.duration}>{duration ? duration : ''}</div>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </>
   )

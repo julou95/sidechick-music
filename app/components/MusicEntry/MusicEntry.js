@@ -13,6 +13,9 @@ export default function MusicEntry({ entry, setCurrentSong, currentSong }) {
         </div>
         <div className={styles.song}>
           {entry.title}
+          <div className={styles.duration}>
+            {entry.duration}
+          </div>
         </div>
       </div>
     </div>
