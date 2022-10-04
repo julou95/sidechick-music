@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>SideChicks Jukebox</title>
+        <title>Side Chick</title>
         <meta name="description" content="SideChick Jukebox - all our songs and demos" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -20,7 +20,7 @@ export default function Home() {
             <Image src="/logo.png" className={styles.logoImg} height="75" width="75" />
           </div>
           <div className={styles.title}>
-            SideChick Jukebox
+            Side Chick
           </div>
         </div>
       </header>
