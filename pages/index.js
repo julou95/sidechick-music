@@ -1,12 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import MusicList from '@/components/MusicList/MusicList'
 import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
+import { database } from '@/constants/firebaseConfig'
+import { collection, getDocs } from 'firebase/firestore'
 
-export default function Home() {
+const dbInstance = collection(database, 'lyrics')
+
+export default function Home({ lyrics }) {
   const [currentSong, setCurrentSong] = useState()
+
+  console.log('LJ - ', lyrics);
+  
   return (
     <>
       <Head>
@@ -31,8 +38,19 @@ export default function Home() {
       </main>
       {
         currentSong &&
-          <MusicPlayer songId={currentSong} setSongId={setCurrentSong} />
+          <MusicPlayer songId={currentSong} setSongId={setCurrentSong} lyric={lyrics.find(lyr => lyr.id === currentSong) || ''} />
       }
     </>
   )
+}
+
+export async function getStaticProps(context) {
+
+  const lyrics = await getDocs(dbInstance).then((data) => data.docs.map(item => ({ ...item.data(), id: item.id })))  
+
+  return {
+    props: {
+      lyrics,
+    },
+  }
 }
