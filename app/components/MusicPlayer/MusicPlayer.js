@@ -8,13 +8,15 @@ export default function MusicList({ songId, setSongId }) {
   const [isLooped, setIsLooped] = useState(false)
   const [duration, setDuration] = useState('00:00')
   const [isExpanded, setIsExpanded] = useState(false)
+  const [startX, setStartX] = useState()
+
   const audioRef = useRef()
   const sourceRef = useRef()
+  const pwRef = useRef()
   const pbRef = useRef()
   
   useEffect(() => {
     if (songId) {
-      console.log('LJ - ', songId);
       sourceRef.current.src = getSongInfo(songId).file
       audioRef.current.load()
       audioRef.current.play()
@@ -79,10 +81,30 @@ export default function MusicList({ songId, setSongId }) {
   }
 
   const clickProgress = (e) => {
-    let bounds = document.getElementById("progressWrapper").getBoundingClientRect();
+    let bounds = pwRef.current.getBoundingClientRect();
     let x = e.clientX - bounds.left;
+    
     const ratio = 100 / bounds.width * x;
     audioRef.current.currentTime = audioRef.current.duration / 100 * ratio
+  }
+
+  const touchStart = (e) => {
+    audioRef.current.pause()
+    let touchObj = e.changedTouches[0];
+    setStartX(parseInt(touchObj.clientX))
+  }
+
+  const touchEnd = (e) => {
+    let touchObj = e.changedTouches[0];
+    let bounding = pwRef.current.getBoundingClientRect()
+    let distance = parseInt(touchObj.clientX)-startX
+    let final = startX - bounding.x + distance
+
+    const ratio = 100 / bounding.width * final;
+    audioRef.current.currentTime = audioRef.current.duration / 100 * ratio
+    setTimeout(() => {
+      audioRef.current.play()
+    }, 500)
   }
 
   const toggleInfo = () => {
@@ -143,7 +165,6 @@ export default function MusicList({ songId, setSongId }) {
             onPlay={startAudio}
             preload="auto"
             onEnded={hasEnded}
-            playbackRate={2}
           >
             <source ref={sourceRef} src={getSongInfo(songId).file} type="audio/mpeg" />
           </audio>
@@ -167,25 +188,29 @@ export default function MusicList({ songId, setSongId }) {
             </div>
           </div>
           <div className={styles.durationWrapper}>
-              <div className={`${styles.loop} ${isLooped ? styles.active : ''}`} onClick={() => setIsLooped(prev => !prev)}>
-                <Icons name="replayOff" size="15" />
-              </div>
-              <div className={styles.progressWrapper}>
+            <div className={`${styles.loop} ${isLooped ? styles.active : ''}`} onClick={() => setIsLooped(prev => !prev)}>
+              <Icons name="replayOff" size="15" />
+            </div>
+            <div className={styles.progressWrapper}>
+              <div
+                id="progressWrapper"
+                ref={pwRef}
+                // onClick={clickProgress}
+                onTouchStart={touchStart}
+                onTouchMove={touchEnd}
+                onTouchEnd={touchEnd}
+                className={styles.progressbar}
+                >
                 <div
-                  id="progressWrapper"
-                  onClick={clickProgress}
-                  className={styles.progressbar}
-                  >
-                  <div
-                    id="progress"
-                    ref={pbRef}
-                    className={styles.progress}
-                    />
-                </div>
-                <div className={styles.duration}>{duration ? duration : ''}</div>
+                  id="progress"
+                  ref={pbRef}
+                  className={styles.progress}
+                  />
               </div>
+              <div className={styles.duration}>{duration ? duration : ''}</div>
             </div>
           </div>
+        </div>
       </div>
     </>
   )
