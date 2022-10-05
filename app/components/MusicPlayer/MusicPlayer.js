@@ -112,7 +112,7 @@ export default function MusicList({ songId, setSongId, lyric }) {
   }
 
   const copyText = () => {
-    navigator.clipboard.writeText(getSongInfo(songId).lyrics)
+    navigator.clipboard.writeText(lyric.text.replaceAll('[0]', '\n').replaceAll('\\', ''))
   }
 
   return (
@@ -196,7 +196,7 @@ export default function MusicList({ songId, setSongId, lyric }) {
               <div
                 id="progressWrapper"
                 ref={pwRef}
-                // onClick={clickProgress}
+                onClick={clickProgress}
                 onTouchStart={touchStart}
                 onTouchMove={touchEnd}
                 onTouchEnd={touchEnd}
