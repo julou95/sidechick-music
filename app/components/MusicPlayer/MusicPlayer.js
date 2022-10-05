@@ -3,7 +3,7 @@ import styles from '@/styles/MusicPlayer.module.scss'
 import { getNextId, getPreviousId, getSongInfo } from '@/constants/songList'
 import Icons from '../Icons/Icons'
 
-export default function MusicList({ songId, setSongId }) {
+export default function MusicList({ songId, setSongId, lyric }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLooped, setIsLooped] = useState(false)
   const [duration, setDuration] = useState('00:00')
@@ -148,7 +148,7 @@ export default function MusicList({ songId, setSongId }) {
                 {getSongInfo(songId).lyrics ?
                   <div>
                     <h4>Lyrics</h4>
-                    {getSongInfo(songId).lyrics}
+                    {lyric.text.replaceAll('[0]', '\n').replaceAll('\\', '')}
                   </div> : 
                   ''
                 }
