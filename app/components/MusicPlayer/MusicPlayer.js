@@ -5,6 +5,7 @@ import Icons from '../Icons/Icons'
 import { database } from '@/constants/firebaseConfig'
 
 import { 
+  setDoc,
   doc,
   updateDoc
 } from 'firebase/firestore'
@@ -30,7 +31,7 @@ export default function MusicList({ songId, setSongId, lyric }) {
       audioRef.current.load()
       audioRef.current.play()
       setIsPlaying(true)
-      setNewLyrics(lyric.text.replaceAll('[0]', '\n').replaceAll('\\', ''))
+      setNewLyrics(lyric.text?.replaceAll('[0]', '\n').replaceAll('\\', '') || '...')
     }
   }, [songId])
 
@@ -136,14 +137,12 @@ export default function MusicList({ songId, setSongId, lyric }) {
   }
 
   const saveNewLyrics = () => {
-    const collectionById = doc(database, 'lyrics', songId)
-    updateDoc(collectionById, {
+    setDoc(doc(database, 'lyrics', songId), {
       text: lyricRef.current.value,
     }).then(() => {
       setNewLyrics(lyricRef.current.value)
       setEdit(false)
     })
-    
   }
 
   return (
