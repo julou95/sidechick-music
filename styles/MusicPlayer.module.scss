@@ -165,12 +165,12 @@
 
 .metaInfo {
   display: flex;
-  font-size: 0.8rem;;
-  padding-right: 100px;
+  font-size: 0.8rem;
+  flex-wrap: wrap;
   color:#d3d3d3;
   svg {
     fill: #d3d3d3;
-    margin-right: 0.5rem;
+    margin-right: 0.3rem;
   }
   div {
     display: flex;
