@@ -137,8 +137,6 @@ export default function MusicList({ songId, setSongId, lyric }) {
   }
 
   const saveNewLyrics = () => {
-    const collectionById = doc(database, 'lyrics', songId)
-    console.log('LJ - ', 'lyric', lyric);
     setDoc(doc(database, 'lyrics', songId), {
       text: lyricRef.current.value,
     }).then(() => {
