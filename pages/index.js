@@ -11,9 +11,6 @@ const dbInstance = collection(database, 'lyrics')
 
 export default function Home({ lyrics }) {
   const [currentSong, setCurrentSong] = useState()
-
-  console.log('LJ - ', lyrics);
-  
   return (
     <>
       <Head>
@@ -38,7 +35,11 @@ export default function Home({ lyrics }) {
       </main>
       {
         currentSong &&
-          <MusicPlayer songId={currentSong} setSongId={setCurrentSong} lyric={lyrics.find(lyr => lyr.id === currentSong) || ''} />
+          <MusicPlayer
+            songId={currentSong}
+            setSongId={setCurrentSong}
+            lyric={lyrics.find(lyr => lyr.id === currentSong) || ''}
+          />
       }
     </>
   )
