@@ -23,7 +23,7 @@ export default function MusicList({ songId, setSongId, lyric }) {
   const pwRef = useRef()
   const pbRef = useRef()
   const lyricRef = useRef()
-  
+
   useEffect(() => {
     if (songId) {
       sourceRef.current.src = getSongInfo(songId).file

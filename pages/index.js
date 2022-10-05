@@ -11,6 +11,10 @@ const dbInstance = collection(database, 'lyrics')
 
 export default function Home({ lyrics }) {
   const [currentSong, setCurrentSong] = useState()
+
+  useEffect(() => {
+
+  }, [])
   return (
     <>
       <Head>
@@ -45,7 +49,7 @@ export default function Home({ lyrics }) {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
 
   const lyrics = await getDocs(dbInstance).then((data) => data.docs.map(item => ({ ...item.data(), id: item.id })))  
 
