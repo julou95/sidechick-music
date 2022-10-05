@@ -140,6 +140,7 @@ export default function MusicList({ songId, setSongId }) {
               </div>
               <div className={styles.lyrics}>
                 <div className={styles.metaInfo}>
+                  <div><Icons name="date" size="20" />{getSongInfo(songId).date}</div>
                   <div><Icons name="clock" size="20" />{getSongInfo(songId).duration}</div>
                   <div><Icons name="metronome" size="20" viewBox="24" />{getSongInfo(songId).bpm}</div>
                   <div><Icons name="note" size="20" />{getSongInfo(songId).note}</div>
