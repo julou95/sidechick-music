@@ -4,13 +4,13 @@ import { getNextId, getPreviousId, getSongInfo } from '@/constants/songList'
 import Icons from '../Icons/Icons'
 import { database } from '@/constants/firebaseConfig'
 
-import { 
+import {
+  getDoc,
   setDoc,
-  doc,
-  updateDoc
+  doc
 } from 'firebase/firestore'
 
-export default function MusicList({ songId, setSongId, lyric }) {
+export default function MusicList({ songId, setSongId }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLooped, setIsLooped] = useState(false)
   const [duration, setDuration] = useState('00:00')
@@ -31,7 +31,10 @@ export default function MusicList({ songId, setSongId, lyric }) {
       audioRef.current.load()
       audioRef.current.play()
       setIsPlaying(true)
-      setNewLyrics(lyric.text?.replaceAll('[0]', '\n').replaceAll('\\', '') || '...')
+      getDoc(doc(database, 'lyrics', songId)).then((data) => {
+        setNewLyrics(data.data()?.text || '...')
+        console.log('LJ - data', data.data())
+      })
     }
   }, [songId])
 
