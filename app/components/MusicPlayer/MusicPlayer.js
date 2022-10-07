@@ -33,7 +33,6 @@ export default function MusicList({ songId, setSongId }) {
       setIsPlaying(true)
       getDoc(doc(database, 'lyrics', songId)).then((data) => {
         setNewLyrics(data.data()?.text || '...')
-        console.log('LJ - data', data.data())
       })
     }
   }, [songId])
@@ -125,10 +124,6 @@ export default function MusicList({ songId, setSongId }) {
     setIsExpanded(prev => !prev)
   }
 
-  const copyText = () => {
-    navigator.clipboard.writeText(newLyrics.replaceAll('[0]', '\n').replaceAll('\\', ''))
-  }
-
   const toggleEdit = () => {
     if (!edit) {
       setEdit(true)
@@ -160,12 +155,6 @@ export default function MusicList({ songId, setSongId }) {
                   {getSongInfo(songId).title}
                 </div>
                 <div className={styles.download}>
-                  {
-                    getSongInfo(songId).lyrics &&
-                    <div onClick={copyText}>
-                        <Icons name="copy" size="20" />
-                      </div>
-                  }
                   <a href={getSongInfo(songId).file} download>
                     <Icons name="download" size="20" />
                   </a>

@@ -122,6 +122,16 @@ export const songs = [
     note: '-',
     date: '04.10.22',
   },
+  {
+    id: 'doIt',
+    type: 'SONG',
+    title: 'Do it for me',
+    file: '/audio/DoItForMe.mp3',
+    duration: '03:16',
+    bpm: '-',
+    note: '-',
+    date: '07.10.22',
+  },
 ]
 
 export const getNextId = (currentId) => {
