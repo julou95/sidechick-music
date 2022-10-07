@@ -2,13 +2,13 @@ import { useState, useRef, useEffect } from 'react'
 import styles from '@/styles/MusicPlayer.module.scss'
 import { getNextId, getPreviousId, getSongInfo } from '@/constants/songList'
 import Icons from '../Icons/Icons'
-import { database } from '@/constants/firebaseConfig'
+import { db } from '@/constants/firebaseConfig'
 
-import {
-  getDoc,
-  setDoc,
-  doc
-} from 'firebase/firestore'
+// import {
+//   getDoc,
+//   setDoc,
+//   doc
+// } from 'firebase/firestore'
 
 export default function MusicList({ songId, setSongId }) {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -16,7 +16,7 @@ export default function MusicList({ songId, setSongId }) {
   const [duration, setDuration] = useState('00:00')
   const [isExpanded, setIsExpanded] = useState(false)
   const [edit, setEdit] = useState(false)
-  const [newLyrics, setNewLyrics] = useState()
+  const [newLyrics, setNewLyrics] = useState('...')
   const [startX, setStartX] = useState()
 
   const audioRef = useRef()
@@ -31,8 +31,8 @@ export default function MusicList({ songId, setSongId }) {
       audioRef.current.load()
       audioRef.current.play()
       setIsPlaying(true)
-      getDoc(doc(database, 'lyrics', songId)).then((data) => {
-        setNewLyrics(data.data()?.text || '...')
+      db().collection('lyrics').doc(songId).get().then(doc => {
+        setNewLyrics(doc.data()?.text || '...')
       })
     }
   }, [songId])
@@ -135,8 +135,8 @@ export default function MusicList({ songId, setSongId }) {
   }
 
   const saveNewLyrics = () => {
-    setDoc(doc(database, 'lyrics', songId), {
-      text: lyricRef.current.value,
+    db().collection('lyrics').doc(songId).set({
+      text: lyricRef.current.value
     }).then(() => {
       setNewLyrics(lyricRef.current.value)
       setEdit(false)

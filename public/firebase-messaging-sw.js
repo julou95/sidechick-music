@@ -1,11 +1,8 @@
-import { initializeApp } from "firebase/app";
-import { getMessaging } from "firebase/messaging/sw";
+importScripts('https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/7.9.1/firebase-messaging.js');
 
-// Initialize the Firebase app in the service worker by passing in
-// your app's Firebase config object.
-// https://firebase.google.com/docs/web/setup#config-object
-const firebaseApp = initializeApp({
-  apiKey: process.env.FS_API,
+firebase.initializeApp({
+  apiKey: 'AIzaSyCOlV7NKYUoBM05aqFOzzzE7MX3vqMnLVE',
   authDomain: "side-chick-60a33.firebaseapp.com",
   projectId: "side-chick-60a33",
   storageBucket: "side-chick-60a33.appspot.com",
@@ -14,6 +11,14 @@ const firebaseApp = initializeApp({
   measurementId: "G-DJYFCY7S0M"
 });
 
-// Retrieve an instance of Firebase Messaging so that it can handle background
-// messages.
-const messaging = getMessaging(firebaseApp);
+firebase.messaging();
+
+//background notifications will be received here
+firebase.messaging().setBackgroundMessageHandler((payload) => {
+  const { title, body } = payload.notification;
+  var options = {
+    body,
+    icon: '/logo-128.png',
+  };
+  self.registration.showNotification(title, options);
+});
