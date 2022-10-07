@@ -33,6 +33,16 @@ export const songs = [
     date: '04.10.22',
   },
   {
+    id: 'doIt',
+    type: 'SONG',
+    title: 'Do it for me',
+    file: '/audio/DoItForMe.mp3',
+    duration: '03:16',
+    bpm: '-',
+    note: '-',
+    date: '07.10.22',
+  },
+  {
     id: 'moosefighter',
     type: 'INST',
     title: 'MooseFighter',
@@ -121,16 +131,6 @@ export const songs = [
     bpm: '-',
     note: '-',
     date: '04.10.22',
-  },
-  {
-    id: 'doIt',
-    type: 'SONG',
-    title: 'Do it for me',
-    file: '/audio/DoItForMe.mp3',
-    duration: '03:16',
-    bpm: '-',
-    note: '-',
-    date: '07.10.22',
   },
 ]
 
