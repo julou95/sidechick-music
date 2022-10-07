@@ -1,6 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
+  
   render() {
     return (
       <Html>
@@ -16,6 +17,10 @@ class MyDocument extends Document {
           <link rel="apple-touch-startup-image" href="/logos/maskable_icon_x512" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)" />
           <meta name="theme-color" content="#0c0b15" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+          <script
+            src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+            async=""
+          ></script>
         </Head>
         <body>
           <Main />

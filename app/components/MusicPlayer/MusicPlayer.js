@@ -4,13 +4,13 @@ import { getNextId, getPreviousId, getSongInfo } from '@/constants/songList'
 import Icons from '../Icons/Icons'
 import { database } from '@/constants/firebaseConfig'
 
-import { 
+import {
+  getDoc,
   setDoc,
-  doc,
-  updateDoc
+  doc
 } from 'firebase/firestore'
 
-export default function MusicList({ songId, setSongId, lyric }) {
+export default function MusicList({ songId, setSongId }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLooped, setIsLooped] = useState(false)
   const [duration, setDuration] = useState('00:00')
@@ -31,7 +31,9 @@ export default function MusicList({ songId, setSongId, lyric }) {
       audioRef.current.load()
       audioRef.current.play()
       setIsPlaying(true)
-      setNewLyrics(lyric.text?.replaceAll('[0]', '\n').replaceAll('\\', '') || '...')
+      getDoc(doc(database, 'lyrics', songId)).then((data) => {
+        setNewLyrics(data.data()?.text || '...')
+      })
     }
   }, [songId])
 
@@ -122,10 +124,6 @@ export default function MusicList({ songId, setSongId, lyric }) {
     setIsExpanded(prev => !prev)
   }
 
-  const copyText = () => {
-    navigator.clipboard.writeText(newLyrics.replaceAll('[0]', '\n').replaceAll('\\', ''))
-  }
-
   const toggleEdit = () => {
     if (!edit) {
       setEdit(true)
@@ -157,12 +155,6 @@ export default function MusicList({ songId, setSongId, lyric }) {
                   {getSongInfo(songId).title}
                 </div>
                 <div className={styles.download}>
-                  {
-                    getSongInfo(songId).lyrics &&
-                    <div onClick={copyText}>
-                        <Icons name="copy" size="20" />
-                      </div>
-                  }
                   <a href={getSongInfo(songId).file} download>
                     <Icons name="download" size="20" />
                   </a>
