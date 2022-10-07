@@ -1,12 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import MusicList from '@/components/MusicList/MusicList'
 import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
+import { messaging } from '@/constants/firebaseConfig'
 
 export default function Home() {
   const [currentSong, setCurrentSong] = useState()
+
+  useEffect(() => {
+    messaging
+      .requestPermission()
+      .then(() => {
+        return messaging.getToken()
+      })
+      .then(token => {
+        console.log('LJ - ', 'token', token);
+      })
+      .catch(error => {
+        console.log('LJ - ', 'error', error);
+      })
+  }, [])
   return (
     <>
       <Head>
