@@ -44,7 +44,6 @@ export default function Add() {
         node: noteRef.current.value,
         date: dateRef.current.value,
       }).then(() => {
-        setShowModal(true)
         idRef.current.value = ''
         titleRef.current.value = ''
         typeRef.current.value = ''
@@ -57,8 +56,8 @@ export default function Add() {
       })
     } else {
       setHasError(true)
-      setShowModal(true)
     }
+    setShowModal(true)
   }
 
   return (
@@ -69,11 +68,11 @@ export default function Add() {
       <h1><span>New Song</span></h1>
       <div className={styles.addForm}>
         <label>Song</label>
-        <input ref={songRef} type="file" accept='audio/*' />
+        <input className={hasError && !songRef.current.value ? styles.error : ''} ref={songRef} type="file" accept='audio/*' />
         <label>ID:</label>
-        <input ref={idRef} type="text" />
+        <input className={hasError && !idRef.current.value ? styles.error : ''} ref={idRef} type="text" />
         <label>Title:</label>
-        <input ref={titleRef} type="text" />
+        <input className={hasError && !titleRef.current.value ? styles.error : ''} ref={titleRef} type="text" />
         <label>Type:</label>
         <select ref={typeRef} name="songType">
           <option value="SONG">Song</option>
@@ -85,19 +84,19 @@ export default function Add() {
         <div className={styles.row}>
           <div>
             <label>Duration:</label>
-            <input ref={durationRef} type="text" />
+            <input className={hasError && !durationRef.current.value ? styles.error : ''} ref={durationRef} type="text" />
           </div>
           <div>
             <label>BPM:</label>
-            <input ref={bpmRef} type="text" />
+            <input className={hasError && !bpmRef.current.value ? styles.error : ''} ref={bpmRef} type="text" />
           </div>
           <div>
             <label>Note:</label>
-            <input ref={noteRef} type="text" />
+            <input className={hasError && !noteRef.current.value ? styles.error : ''} ref={noteRef} type="text" />
           </div>
         </div>
         <label>Date:</label>
-        <input ref={dateRef} type="text" />
+        <input className={hasError && !dateRef.current.value ? styles.error : ''} ref={dateRef} type="text" />
         <button className={styles.saveButton} onClick={save}>SAVE</button>
       </div>
     </>
