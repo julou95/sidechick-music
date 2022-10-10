@@ -11,11 +11,14 @@
     padding: 0.5rem;
     background-color: transparent;
     color: black;
-    border: 1px solid #aaaaaa;
+    border: 2px solid #aaaaaa;
     border-radius: 0.2rem;
     margin-bottom: 1rem;
     &:focus {
       border-color: #4c4c4c;
+    }
+    &.error {
+      border: 2px solid #A63D3F;
     }
   }
   textarea {
