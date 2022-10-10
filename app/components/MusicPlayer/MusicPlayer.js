@@ -1,16 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import styles from '@/styles/MusicPlayer.module.scss'
-import { getNextId, getPreviousId, getSongInfo } from '@/constants/songList'
 import Icons from '../Icons/Icons'
-import { db } from '@/constants/firebaseConfig'
+import { db, storage } from '@/constants/firebaseConfig'
 
-// import {
-//   getDoc,
-//   setDoc,
-//   doc
-// } from 'firebase/firestore'
-
-export default function MusicList({ songId, setSongId }) {
+export default function MusicList({ song, prevSong, nextSong }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLooped, setIsLooped] = useState(false)
   const [duration, setDuration] = useState('00:00')
@@ -18,6 +11,7 @@ export default function MusicList({ songId, setSongId }) {
   const [edit, setEdit] = useState(false)
   const [newLyrics, setNewLyrics] = useState('...')
   const [startX, setStartX] = useState()
+  const [dlURL, setDlURL] = useState()
 
   const audioRef = useRef()
   const sourceRef = useRef()
@@ -26,16 +20,17 @@ export default function MusicList({ songId, setSongId }) {
   const lyricRef = useRef()
 
   useEffect(() => {
-    if (songId) {
-      sourceRef.current.src = getSongInfo(songId).file
-      audioRef.current.load()
-      audioRef.current.play()
+    if (song) {
       setIsPlaying(true)
-      db().collection('lyrics').doc(songId).get().then(doc => {
-        setNewLyrics(doc.data()?.text || '...')
+      setNewLyrics(song.text || '...')
+      storage().ref(song.media).getDownloadURL().then((url) => {
+        setDlURL(url)
+        sourceRef.current.src = url
+        audioRef.current.load()
+        audioRef.current.play()
       })
     }
-  }, [songId])
+  }, [song])
 
   const play = () => {
     if (isPlaying) {
@@ -59,7 +54,7 @@ export default function MusicList({ songId, setSongId }) {
   const hasEnded = () => {
     if (!isLooped) {
       audioRef.current.currentTime = 0;
-      setSongId(getNextId(songId))
+      nextSong(song.id)
     }
   }
 
@@ -67,13 +62,13 @@ export default function MusicList({ songId, setSongId }) {
     if (audioRef.current.currentTime >= 3) {
       audioRef.current.currentTime = 0
     } else {
-      setSongId(getPreviousId(songId))
+      prevSong(song.id)
     }
   }
 
   const next = () => {
     audioRef.current.currentTime = 0;
-    setSongId(getNextId(songId))
+    nextSong(song.id)
   }
 
   const onProgress = () => {
@@ -135,7 +130,8 @@ export default function MusicList({ songId, setSongId }) {
   }
 
   const saveNewLyrics = () => {
-    db().collection('lyrics').doc(songId).set({
+    db().collection('lyrics').doc(song.id).set({
+      ...song,
       text: lyricRef.current.value
     }).then(() => {
       setNewLyrics(lyricRef.current.value)
@@ -152,20 +148,20 @@ export default function MusicList({ songId, setSongId }) {
               <div className={styles.infoHead}>
                 <div className={styles.infoTitle} onClick={toggleInfo}>
                   <Icons name="back" size="25" />
-                  {getSongInfo(songId).title}
+                  {song.title}
                 </div>
                 <div className={styles.download}>
-                  <a href={getSongInfo(songId).file} download>
+                  <a href={dlURL} target="_blank" download>
                     <Icons name="download" size="20" />
                   </a>
                 </div>
               </div>
               <div className={styles.lyrics}>
                 <div className={styles.metaInfo}>
-                  <div><Icons name="date" size="20" />{getSongInfo(songId).date}</div>
-                  <div><Icons name="clock" size="20" />{getSongInfo(songId).duration}</div>
-                  <div><Icons name="metronome" size="20" viewBox="24" />{getSongInfo(songId).bpm}</div>
-                  <div><Icons name="note" size="20" />{getSongInfo(songId).note}</div>
+                  <div><Icons name="date" size="20" />{song.date}</div>
+                  <div><Icons name="clock" size="20" />{song.duration}</div>
+                  <div><Icons name="metronome" size="20" viewBox="24" />{song.bpm}</div>
+                  <div><Icons name="note" size="20" />{song.note}</div>
                 </div>
                 {newLyrics ?
                   <div>
@@ -210,7 +206,7 @@ export default function MusicList({ songId, setSongId }) {
             preload="auto"
             onEnded={hasEnded}
           >
-            <source ref={sourceRef} src={getSongInfo(songId).file} type="audio/mpeg" />
+            <source ref={sourceRef} src={song} type="audio/mpeg" />
           </audio>
           <div className={styles.infoWrapper}>
             <div className={styles.playActions}>
@@ -226,7 +222,7 @@ export default function MusicList({ songId, setSongId }) {
             </div>
             <div className={styles.songInfo}>
               <div className={`${styles.songName} ${ isExpanded ? styles.expanded : '' }`} onClick={toggleInfo}>
-                {getSongInfo(songId).title}
+                {song.title}
                 <Icons name="expand" size="22" />
               </div>
             </div>
