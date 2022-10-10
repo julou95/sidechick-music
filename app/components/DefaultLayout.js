@@ -14,7 +14,7 @@ export default function DefaultLayout({ children }) {
         <div className={styles.innerHeader}>
           <a className={styles.headerLeft} href="/">
             <div className={styles.logo}>
-              <Image src="/logo.png" className={styles.logoImg} height="75" width="75" />
+              <Image src="/logo.png" alt="logo" className={styles.logoImg} height="75" width="75" />
             </div>
             <div className={styles.title}>
               Side Chick

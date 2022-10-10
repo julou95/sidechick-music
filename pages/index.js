@@ -51,7 +51,7 @@ export default function Home() {
   return (
     <>
       {
-        isLoading && <div className={styles.loading}><Image src="/loading.gif" height="200" width="210" /></div>
+        isLoading && <div className={styles.loading}><Image src="/loading.gif" height="200" width="210" alt="loading" /></div>
       }
       {
         types.map((type) =>
