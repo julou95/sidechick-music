@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import MusicList from '@/components/MusicList/MusicList'
 import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
 import { db } from '@/constants/firebaseConfig'
+import styles from '@/styles/Home.module.scss'
 
 const types = [
   'SONG',
@@ -10,6 +12,7 @@ const types = [
 ]
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
   const [songs, setSongs] = useState()
   const [currentSong, setCurrentSong] = useState()
 
@@ -20,7 +23,10 @@ export default function Home() {
         ...data.docs.map(doc => doc.data()).filter(entry => entry.type === 'INST'),
         ...data.docs.map(doc => doc.data()).filter(entry => entry.type === 'IDEA'),
       ]      
-      setSongs(sorted)
+      setTimeout(() => {
+        setSongs(sorted)
+        setIsLoading(false)
+      }, 500)
     })
   }, [])
 
@@ -44,6 +50,9 @@ export default function Home() {
 
   return (
     <>
+      {
+        isLoading && <div className={styles.loading}><Image src="/loading.gif" height="200" width="210" /></div>
+      }
       {
         types.map((type) =>
           <MusicList

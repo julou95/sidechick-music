@@ -66,9 +66,11 @@
   color: #0c0b15;
 }
 
-/* .playerWrapper {
-
-} */
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 10rem;
+}
 
 @media screen and (min-width: 701px) {
   .main, .innerHeader, .innerPlayer {
