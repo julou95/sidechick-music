@@ -195,59 +195,61 @@ export default function MusicList({ song, prevSong, nextSong }) {
             </div>
           </div>
       }
-      <div className={styles.player}>
-        <div className={styles.innerPlayer}>
-          <audio
-            ref={audioRef}
-            onTimeUpdate={onProgress}
-            loop={isLooped}
-            onPause={onPause}
-            onPlay={startAudio}
-            preload="auto"
-            onEnded={hasEnded}
-          >
-            <source ref={sourceRef} src={song} type="audio/mpeg" />
-          </audio>
-          <div className={styles.infoWrapper}>
-            <div className={styles.playActions}>
-              <div className={styles.actionButton} onClick={prev}>
-                <Icons name="prev" size="30" />
+      <div className={styles.playerWrapper}>
+        <div className={styles.player}>
+          <div className={styles.innerPlayer}>
+            <audio
+              ref={audioRef}
+              onTimeUpdate={onProgress}
+              loop={isLooped}
+              onPause={onPause}
+              onPlay={startAudio}
+              preload="auto"
+              onEnded={hasEnded}
+            >
+              <source ref={sourceRef} src={song} type="audio/mpeg" />
+            </audio>
+            <div className={styles.infoWrapper}>
+              <div className={styles.playActions}>
+                <div className={styles.actionButton} onClick={prev}>
+                  <Icons name="prev" size="30" />
+                </div>
+                <div className={styles.actionButton} onClick={play}>
+                  <Icons name={isPlaying ? 'pause' : 'play'} size="40" />
+                </div>
+                <div className={styles.actionButton} onClick={next}>
+                  <Icons name="next" size="30" />
+                </div>
               </div>
-              <div className={styles.actionButton} onClick={play}>
-                <Icons name={isPlaying ? 'pause' : 'play'} size="40" />
-              </div>
-              <div className={styles.actionButton} onClick={next}>
-                <Icons name="next" size="30" />
+              <div className={styles.songInfo}>
+                <div className={`${styles.songName} ${ isExpanded ? styles.expanded : '' }`} onClick={toggleInfo}>
+                  {song.title}
+                  <Icons name="expand" size="22" />
+                </div>
               </div>
             </div>
-            <div className={styles.songInfo}>
-              <div className={`${styles.songName} ${ isExpanded ? styles.expanded : '' }`} onClick={toggleInfo}>
-                {song.title}
-                <Icons name="expand" size="22" />
+            <div className={styles.durationWrapper}>
+              <div className={`${styles.loop} ${isLooped ? styles.active : ''}`} onClick={() => setIsLooped(prev => !prev)}>
+                <Icons name="replayOff" size="15" />
               </div>
-            </div>
-          </div>
-          <div className={styles.durationWrapper}>
-            <div className={`${styles.loop} ${isLooped ? styles.active : ''}`} onClick={() => setIsLooped(prev => !prev)}>
-              <Icons name="replayOff" size="15" />
-            </div>
-            <div className={styles.progressWrapper}>
-              <div
-                id="progressWrapper"
-                ref={pwRef}
-                onClick={clickProgress}
-                onTouchStart={touchStart}
-                onTouchMove={touchEnd}
-                onTouchEnd={touchEnd}
-                className={styles.progressbar}
-                >
+              <div className={styles.progressWrapper}>
                 <div
-                  id="progress"
-                  ref={pbRef}
-                  className={styles.progress}
-                  />
+                  id="progressWrapper"
+                  ref={pwRef}
+                  onClick={clickProgress}
+                  onTouchStart={touchStart}
+                  onTouchMove={touchEnd}
+                  onTouchEnd={touchEnd}
+                  className={styles.progressbar}
+                  >
+                  <div
+                    id="progress"
+                    ref={pbRef}
+                    className={styles.progress}
+                    />
+                </div>
+                <div className={styles.duration}>{duration ? duration : ''}</div>
               </div>
-              <div className={styles.duration}>{duration ? duration : ''}</div>
             </div>
           </div>
         </div>

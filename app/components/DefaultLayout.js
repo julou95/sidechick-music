@@ -1,0 +1,34 @@
+import Head from 'next/head'
+import Image from 'next/image'
+import styles from '@/styles/Home.module.scss'
+import Icons from './Icons/Icons'
+
+export default function DefaultLayout({ children }) {
+  return (
+    <>
+      <Head>
+        <title>Side Chick</title>
+        <meta name="description" content="SideChick Jukebox - all our songs and demos" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <header className={styles.header}>
+        <div className={styles.innerHeader}>
+          <a className={styles.headerLeft} href="/">
+            <div className={styles.logo}>
+              <Image src="/logo.png" className={styles.logoImg} height="75" width="75" />
+            </div>
+            <div className={styles.title}>
+              Side Chick
+            </div>
+          </a>
+          <a className={styles.uploadButton} href="/add">
+            <Icons name="upload" size="24" />
+          </a>
+        </div>
+      </header>
+      <main className={styles.main}>
+        {children}
+      </main>
+    </>
+  )
+}
