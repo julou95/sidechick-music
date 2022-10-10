@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import Head from 'next/head'
-import Image from 'next/image'
 import MusicList from '@/components/MusicList/MusicList'
 import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
 import { db } from '@/constants/firebaseConfig'

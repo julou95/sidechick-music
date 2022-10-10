@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.scss'
-import Icons from './Icons/Icons'
 
 export default function DefaultLayout({ children }) {
   return (
@@ -20,9 +19,6 @@ export default function DefaultLayout({ children }) {
             <div className={styles.title}>
               Side Chick
             </div>
-          </a>
-          <a className={styles.uploadButton} href="/add">
-            <Icons name="upload" size="24" />
           </a>
         </div>
       </header>
