@@ -14,8 +14,25 @@
 
 .innerHeader {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   max-width: 670px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.uploadButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 35px;
+  svg {
+    fill: white;
+  }
 }
 
 .logo {
@@ -41,13 +58,17 @@
   max-width: 670px;
   min-height: 100vh;
   margin: 0 0.5rem 6rem;
-  padding: 0rem 0.5rem;
+  padding: 1rem 0.5rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   background-color: #e7e7e7;
   color: #0c0b15;
 }
+
+/* .playerWrapper {
+
+} */
 
 @media screen and (min-width: 701px) {
   .main, .innerHeader, .innerPlayer {

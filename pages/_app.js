@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import '../styles/globals.css'
 import { firebaseCloudMessaging } from '@/constants/firebaseConfig';
 import firebase from 'firebase/app';
+import DefaultLayout from '@/components/DefaultLayout';
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -37,7 +38,9 @@ function MyApp({ Component, pageProps }) {
       });
     }
   });
-  return <Component {...pageProps} />
+  return <DefaultLayout>
+      <Component {...pageProps} />
+    </DefaultLayout>
 }
 
 export default MyApp
