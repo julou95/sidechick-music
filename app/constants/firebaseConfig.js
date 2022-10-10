@@ -1,5 +1,6 @@
 import 'firebase/messaging';
 import "firebase/firestore";
+import "firebase/storage";
 import firebase from 'firebase/app';
 import localforage from 'localforage';
 import { config } from '@/constants/firebaseData'
@@ -66,4 +67,19 @@ export const db = () => {
     });
   }
   return firebase.firestore()
+}
+
+export const storage = () => {
+  if (!firebase.apps.length) {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyCOlV7NKYUoBM05aqFOzzzE7MX3vqMnLVE',
+      authDomain: "side-chick-60a33.firebaseapp.com",
+      projectId: "side-chick-60a33",
+      storageBucket: "side-chick-60a33.appspot.com",
+      messagingSenderId: "947750175464",
+      appId: "1:947750175464:web:9d7247fe2fee918e58ff5d",
+      measurementId: "G-DJYFCY7S0M"
+    });
+  }
+  return firebase.storage()
 }
