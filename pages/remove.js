@@ -67,7 +67,7 @@ export default function Remove() {
       <div className={styles.songlist}>
         {
           songs && songs.map((song) =>
-            <div className={styles.songEntry} onClick={() => pushToList(song)}>
+            <div key={song.id} className={styles.songEntry} onClick={() => pushToList(song)}>
               <div className={styles.songEntryLeft}>
                 <div className={`${styles.trashIcon} ${isChecked(song.id) ? styles.checked : ''}`}>
                   <Icons name="trash" size="25" />
@@ -92,11 +92,11 @@ export default function Remove() {
               showSuccess ?
                 <h3>YAAAAAAY</h3> :
                 <>
-                  <h3>You're about to delete the following songs:</h3>
+                  <h3>You&apos;re about to delete the following songs:</h3>
                   <div className={styles.deleteSongList}>
                     {
                       songsToDelete.map(song =>
-                        <div className={styles.songToDeleteEntry}>
+                        <div key={song.id} className={styles.songToDeleteEntry}>
                           <div>{song.title}</div>
                           <div>{song.type}</div>
                         </div>
