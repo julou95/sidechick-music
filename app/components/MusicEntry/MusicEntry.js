@@ -5,7 +5,7 @@ import styles from '@/styles/MusicList.module.scss';
 
 export default function MusicEntry({ entry, setCurrentSong, currentSong }) {
   const isPlaying = () => currentSong?.id === entry.id
-  const darkmode = useContext(ThemeContext)
+  const { darkmode } = useContext(ThemeContext)
 
   return (
     <div className={`${styles.musicEntry} ${isPlaying() ? styles.active : ''} ${darkmode ? styles.dark : ''}`} onClick={() => setCurrentSong(entry)}>

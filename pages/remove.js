@@ -11,9 +11,13 @@ export default function Remove() {
   const [showModal, setShowModal] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const darkmode = useContext(ThemeContext)
+  const { darkmode } = useContext(ThemeContext)
 
   useEffect(() => {
+    loadSongs()
+  }, [])
+
+  const loadSongs = () => {
     db().collection('lyrics').get().then((data) => {
       const sorted = [
         ...data.docs.map(doc => doc.data()).filter(entry => entry.type === 'SONG'),
@@ -22,7 +26,7 @@ export default function Remove() {
       ]      
       setSongs(sorted)
     })
-  }, [])
+  }
 
   const isChecked = (id) => {
     return !!songsToDelete?.find(entry => entry.id === id)
@@ -48,7 +52,7 @@ export default function Remove() {
             setShowModal(false)
             setShowSuccess(false)
             setIsLoading(false)
-            Router.reload()
+            loadSongs()
           }, 1000)
         }).catch((error) => {
           console.log('LJ - storage error', error);
