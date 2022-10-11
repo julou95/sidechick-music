@@ -31,7 +31,11 @@
     font-size: 1rem;
     color: black;
     background-color: transparent;
+    border: 2px solid #aaaaaa;
     border-radius: 5px;
+    &:focus {
+      border-color: #4c4c4c;
+    }
   }
   .row {
     display: flex;
@@ -49,6 +53,45 @@
     input {
       width: 100%;
     }
+  }
+}
+
+.uploadInput {
+  display: none;
+}
+
+.uploadButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem !important;
+  cursor: pointer;
+  font-size: 1.2rem !important;
+  color: black;
+  background-color: transparent;
+}
+
+.songName {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  padding-left: 0.5rem;
+  border: 2px solid #aaaaaa;
+  border-radius: 5px 0 0 5px;
+  border-right: none;
+  width: 100%;
+}
+
+.uploadIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 42px;
+  width: 80px;
+  background-color: #A63D3F;
+  border-radius: 0 0.2rem 0.2rem 0;
+  svg {
+    fill: #e7e7e7;
   }
 }
 
@@ -71,4 +114,21 @@
   border: none;
   border-radius: 0.3rem;
   background-color: #3e3857;
+}
+
+.dark {
+  color: #e7e7e7;
+  input, select, textarea, .songName {
+    color: #e7e7e7;
+    border-color: #4c4c4c;
+    &:focus {
+      border-color: #aaaaaa;
+    }
+    button {
+      background-color: #A63D3F;
+    }
+  }
+  .saveButton {
+    background-color: #A63D3F;
+  }
 }

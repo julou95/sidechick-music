@@ -1,17 +1,21 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useContext } from 'react'
 import styles from '@/styles/Add.module.scss'
 import { db, storage } from '@/constants/firebaseConfig'
+import { ThemeContext } from '@/constants/themeContext'
+import Icons from '@/components/Icons/Icons'
 
 export default function Add() {
   const [showModal, setShowModal] = useState(false)
   const [hasError, setHasError] = useState(false)
   const [durationStr, setDurationStr] = useState()
+  const [fileName, setFileName] = useState()
   const songRef = useRef()
   const titleRef = useRef()
   const typeRef = useRef()
   const lyricsRef = useRef()
   const bpmRef = useRef()
   const noteRef = useRef()
+  const darkmode = useContext(ThemeContext)
 
   const str_pad_left = (string,pad,length) => {
     return (new Array(length+1).join(pad)+string).slice(-length);
@@ -56,7 +60,6 @@ export default function Add() {
         }).catch(err => {
           console.log('LJ - ', 'error', err);
         })
-
       }).catch((err) => {
         console.log('LJ - ', 'error', err);
       })
@@ -69,7 +72,7 @@ export default function Add() {
   const loadAudio = () => {
     const file = songRef.current.files[0]
     const reader = new FileReader();
-    console.log('LJ - file', file);
+    if (file) setFileName(file.name)
 
     reader.onload = async function (event) {
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -85,7 +88,7 @@ export default function Add() {
     reader.onerror = function (event) {
       console.error("An error ocurred reading the file: ", event);
     };
-    reader.readAsArrayBuffer(file);
+    if (file) reader.readAsArrayBuffer(file);
   }
 
   return (
@@ -94,9 +97,15 @@ export default function Add() {
       showModal && <div className={styles.modal} onClick={() => setShowModal(false)}>{hasError ? 'OOOPS! fill me up!' : 'YAAAAY!'}</div>
     }
       <h1><span>New Song</span></h1>
-      <div className={styles.addForm}>
+      <div className={`${styles.addForm} ${darkmode ? styles.dark : ''}`}>
         <label>Song</label>
-        <input className={hasError && !songRef.current.value ? styles.error : ''} ref={songRef} type="file" accept='audio/*' onChange={loadAudio} />
+        <label for="file-upload" className={styles.uploadButton}>
+            <div className={styles.songName}>
+              {!!fileName ? fileName : 'Select File'}
+            </div>
+            <div className={styles.uploadIcon}><Icons name="upload" size="25" /></div>
+        </label>
+        <input id="file-upload" className={`${styles.uploadInput} ${hasError && !songRef.current.value ? styles.error : ''}`} ref={songRef} type="file" accept='audio/*' onChange={loadAudio} />
         <label>Title:</label>
         <input className={hasError && !titleRef.current.value ? styles.error : ''} ref={titleRef} type="text" />
         <label>Type:</label>
