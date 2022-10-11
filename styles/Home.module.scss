@@ -92,6 +92,80 @@
   }
 }
 
+.optionsToggle {
+  width: 30px;
+  height: 30px;
+  transition: all 0.2s ease-in;
+  svg {
+    fill: #e7e7e7;
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+.showOptions {
+  transform: rotate(90deg);
+  svg {
+    fill:#A63D40;
+  }
+}
+
+.optionsWrapper {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 80px;
+  right: 0;
+  background-color: #000000e8;
+  overflow: hidden;
+  transition: width 0.3s 0.2s ease;
+}
+
+.optionsInner {
+  opacity: 0;
+  padding: 2rem 1rem;
+  transition: opacity 0.3s ease;
+}
+
+.optionsVisible {
+  width: 100%;
+  transition: width 0.3s ease;
+  .optionsInner {
+    opacity: 1;
+    transition: opacity 0.3s 0.2s ease;
+  }
+}
+
+
+.menuItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  font-size: 1.2rem;
+  padding: 0.7rem 0.1rem;
+  border-top: 1px solid #e7e7e7;
+  svg {
+    fill: #e7e7e7
+  }
+}
+
+.themeToggle {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+}
+
+.toggleInner {
+  width: 60px;
+  transition: all 0.2s ease-in-out;
+}
+
+.toggleDark {
+  margin-left: -30px;
+}
+
 .themeToggle svg {
   fill: #e7e7e7;
 }
