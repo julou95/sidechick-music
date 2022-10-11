@@ -30,7 +30,7 @@ export default function DefaultLayout({ children }) {
       <header className={styles.header}>
         <div className={styles.innerHeader}>
           <Link href="/">
-            <div className={styles.headerLeft}>
+            <div className={styles.headerLeft} onClick={() => setShowOptions(false)}>
               <div className={styles.logo}>
                 <Image src="/logo.png" alt="logo" className={styles.logoImg} height="96" width="96" />
               </div>

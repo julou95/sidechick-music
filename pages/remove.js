@@ -41,7 +41,6 @@ export default function Remove() {
   const confirmDelete = () => {
     setIsLoading(true)
     songsToDelete.forEach(song => {
-      // firestore
       db().collection('lyrics').doc(song.id).delete().then(() => {
         storage().ref(song.media).delete().then(() => {
           setShowSuccess(true)
@@ -57,7 +56,6 @@ export default function Remove() {
       }).catch((error) => {
         console.log('LJ - firestore error', error);
       })
-      //storage
     })
   }
 

@@ -23,6 +23,14 @@ export default function Add() {
     return (new Array(length+1).join(pad)+string).slice(-length);
   }
 
+  const getDateString = () => {
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth()+1;
+    const year = date.getFullYear().toString();
+    return str_pad_left(day, '0', 2)+'.'+str_pad_left(month, '0', 2)+'.'+year.substring(2)
+  }
+
   const save = () => {
     setIsLoading(true)
     const file = songRef.current.files[0]
@@ -30,15 +38,15 @@ export default function Add() {
       titleRef.current.value,
       typeRef.current.value,
       file?.name || '',
-      lyricsRef.current.value,
     ]
 
     const hasEmpty = refValues.some(value => !value);
+
     const date = new Date();
     const day = date.getDate();
     const month = date.getMonth()+1;
     const year = date.getFullYear().toString();
-    const dateStr = str_pad_left(day, '0', 2)+'.'+str_pad_left(month, '0', 2)+'.'+year.substring(2)
+    const dateStr = getDateString()
 
     if (!hasEmpty) {
       storage().ref(file.name).put(file).then((res) => {

@@ -56,8 +56,9 @@
 
 .main {
   max-width: 670px;
-  margin: 0 0.5rem 6rem;
-  padding: 1rem 0.5rem;
+  min-height: calc(100vh - 6rem);
+  margin: 0 0.5rem;
+  padding: 1rem 0.5rem 6rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -73,23 +74,6 @@
   justify-content: center;
   margin-top: 5rem;
   transform: rotate(90deg);
-}
-
-@media screen and (min-width: 701px) {
-  .main, .innerHeader, .innerPlayer {
-    margin: 0 auto;
-  }
-  .main {
-    padding: 2rem 1rem;
-    margin-bottom: 6rem;
-  }
-  .logo {
-    height: 4rem;
-    width: 4rem;
-  }
-  .title {
-    font-size: 2rem;
-  }
 }
 
 .optionsToggle {
@@ -113,7 +97,7 @@
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   top: 80px;
   right: 0;
   background-color: #000000e8;
@@ -125,6 +109,7 @@
   opacity: 0;
   padding: 2rem 1rem;
   transition: opacity 0.3s ease;
+  max-width: 670px;
 }
 
 .optionsVisible {
@@ -146,6 +131,10 @@
   font-size: 1.2rem;
   padding: 0.7rem 0.1rem;
   border-top: 1px solid #e7e7e7;
+  cursor: pointer;
+  &:last-child {
+    border-bottom: 1px solid #e7e7e7;
+  }
   svg {
     fill: #e7e7e7
   }
@@ -182,4 +171,22 @@
 
 .light {
   background-color: #e7e7e7;
+}
+
+
+@media screen and (min-width: 701px) {
+  .main, .innerHeader, .innerPlayer, .optionsInner {
+    margin: 0 auto;
+  }
+  .main {
+    padding: 2rem 1rem;
+    margin-bottom: 6rem;
+  }
+  .logo {
+    height: 4rem;
+    width: 4rem;
+  }
+  .title {
+    font-size: 2rem;
+  }
 }
