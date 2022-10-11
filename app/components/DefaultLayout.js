@@ -3,21 +3,56 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import Icons from '@/components/Icons/Icons'
+import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
 import styles from '@/styles/Home.module.scss'
+import { db } from '@/constants/firebaseConfig'
+
 import { ThemeContext } from '@/constants/themeContext'
 
 export default function DefaultLayout({ children }) {
   const [darkmode, setDarkmode] = useState(true)
   const [showOptions, setShowOptions] = useState(false)
+  const [currentSong, setCurrentSong] = useState()
+  const [songs, setSongs] = useState()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const isDark = JSON.parse(localStorage.getItem('DARK')) || false
     setDarkmode(isDark)
+    db().collection('lyrics').get().then((data) => {
+      const sorted = [
+        ...data.docs.map(doc => doc.data()).filter(entry => entry.type === 'SONG'),
+        ...data.docs.map(doc => doc.data()).filter(entry => entry.type === 'INST'),
+        ...data.docs.map(doc => doc.data()).filter(entry => entry.type === 'IDEA'),
+      ]      
+      setTimeout(() => {
+        setSongs(sorted)
+        setIsLoading(false)
+      }, 500)
+    })
   }, [])
 
   const setDark = (newVal) => {
     setDarkmode(newVal)
     localStorage.setItem('DARK', newVal)
+  }
+
+  const nextSong = (currentId) => {
+    const currentIndex = songs.findIndex(song => song.id === currentId)
+    if (currentIndex + 1 >= songs.length) {
+      setCurrentSong(songs[0])
+    } else {
+      setCurrentSong(songs[currentIndex + 1])
+    }
+  }
+
+  const prevSong = (currentId) => {
+    const currentIndex = songs.findIndex(song => song.id === currentId)
+    if (currentIndex - 1 < 0) {
+      setCurrentSong(songs[songs.length - 1])
+    } else {
+      setCurrentSong(songs[currentIndex - 1])
+    }
   }
 
   return (
@@ -69,10 +104,25 @@ export default function DefaultLayout({ children }) {
         </div>
       </div>
       <main className={`${styles.main} ${darkmode ? styles.dark : styles.light}`}>
-        <ThemeContext.Provider value={darkmode}>
+        <ThemeContext.Provider value={{
+          darkmode,
+          setCurrentSong,
+          currentSong,
+          isLoading,
+          setIsLoading
+        }}>
           {children}
         </ThemeContext.Provider>
       </main>
+      {
+        currentSong &&
+          <MusicPlayer
+            song={currentSong}
+            prevSong={prevSong}
+            nextSong={nextSong}
+            darkmode={darkmode}
+          />
+      }
     </>
   )
 }

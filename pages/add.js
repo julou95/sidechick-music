@@ -1,5 +1,5 @@
 import { useState, useRef, useContext } from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import styles from '@/styles/Add.module.scss'
 import { db, storage } from '@/constants/firebaseConfig'
 import { ThemeContext } from '@/constants/themeContext'
@@ -17,7 +17,8 @@ export default function Add() {
   const lyricsRef = useRef()
   const bpmRef = useRef()
   const noteRef = useRef()
-  const darkmode = useContext(ThemeContext)
+  const { darkmode } = useContext(ThemeContext)
+  const router = useRouter()
 
   const str_pad_left = (string,pad,length) => {
     return (new Array(length+1).join(pad)+string).slice(-length);
@@ -32,7 +33,6 @@ export default function Add() {
   }
 
   const save = () => {
-    setIsLoading(true)
     const file = songRef.current.files[0]
     const refValues = [
       titleRef.current.value,
@@ -41,14 +41,10 @@ export default function Add() {
     ]
 
     const hasEmpty = refValues.some(value => !value);
-
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth()+1;
-    const year = date.getFullYear().toString();
     const dateStr = getDateString()
 
     if (!hasEmpty) {
+      setIsLoading(true)
       storage().ref(file.name).put(file).then((res) => {
         db().collection('lyrics').doc(file.name.split('.')[0]).set({
           id: file.name.split('.')[0],
@@ -68,8 +64,9 @@ export default function Add() {
           bpmRef.current.value = ''
           noteRef.current.value = ''
           setShowModal(true)
+          setIsLoading(false)
           setTimeout(() => {
-            Router.reload()
+            router.push('/')
           }, 1000)
         }).catch(err => {
           console.log('LJ - ', 'error', err);
@@ -107,39 +104,39 @@ export default function Add() {
   return (
     <>
     {
-      showModal && <div className={styles.modal} onClick={() => setShowModal(false)}>{hasError ? 'OOOPS! fill me up!' : 'YAAAAY!'}</div>
+      showModal && <div className={styles.modal} onClick={() => setShowModal(false)}><h3>{hasError ? 'OOOPS! fill me up!' : 'YAAAAY!'}</h3></div>
     }
       <h1><span>New Song</span></h1>
       <div className={`${styles.addForm} ${darkmode ? styles.dark : ''}`}>
-        <label>Song</label>
-        <label for="file-upload" className={styles.uploadButton}>
+        <label>Song:</label>
+        <label for="file-upload" className={`${styles.uploadButton} ${isLoading ? styles.disabled : ''}`}>
             <div className={styles.songName}>
               {!!fileName ? fileName : 'Select File'}
             </div>
             <div className={styles.uploadIcon}><Icons name="upload" size="25" /></div>
         </label>
-        <input id="file-upload" className={`${styles.uploadInput} ${hasError && !songRef.current.value ? styles.error : ''}`} ref={songRef} type="file" accept='audio/*' onChange={loadAudio} />
+        <input id="file-upload" disabled={isLoading} className={`${styles.uploadInput} ${hasError && !songRef.current.value ? styles.error : ''}`} ref={songRef} type="file" accept='audio/*' onChange={loadAudio} />
         <label>Title:</label>
-        <input className={hasError && !titleRef.current.value ? styles.error : ''} ref={titleRef} type="text" />
+        <input disabled={isLoading} className={hasError && !titleRef.current.value ? styles.error : ''} ref={titleRef} type="text" />
         <label>Type:</label>
-        <select ref={typeRef} name="songType">
+        <select disabled={isLoading} ref={typeRef} name="songType">
           <option value="SONG">Song</option>
           <option value="INST">Instrumental</option>
           <option value="IDEA">Idea</option>
         </select>
         <label>Lyrics:</label>
-        <textarea ref={lyricsRef} />
+        <textarea disabled={isLoading} ref={lyricsRef} />
         <div className={styles.row}>
           <div>
             <label>BPM:</label>
-            <input ref={bpmRef} type="text" />
+            <input disabled={isLoading} ref={bpmRef} type="text" />
           </div>
           <div>
             <label>Note:</label>
-            <input ref={noteRef} type="text" />
+            <input disabled={isLoading} ref={noteRef} type="text" />
           </div>
         </div>
-        <button className={styles.saveButton} onClick={save}>{isLoading ? <Icons name="loading" size="30" /> : 'SAVE'}</button>
+        <button className={styles.saveButton} onClick={save}>{isLoading ? <Icons name="loading" size="30" /> : 'Beam me up!'}</button>
       </div>
     </>
   )

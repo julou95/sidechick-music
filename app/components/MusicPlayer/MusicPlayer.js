@@ -1,10 +1,9 @@
-import { useState, useRef, useEffect, useContext } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import styles from '@/styles/MusicPlayer.module.scss'
 import Icons from '../Icons/Icons'
 import { db, storage } from '@/constants/firebaseConfig'
-import { ThemeContext } from '@/constants/themeContext'
 
-export default function MusicList({ song, prevSong, nextSong }) {
+export default function MusicList({ song, prevSong, nextSong, darkmode }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLooped, setIsLooped] = useState(false)
   const [duration, setDuration] = useState('00:00')
@@ -13,7 +12,6 @@ export default function MusicList({ song, prevSong, nextSong }) {
   const [newLyrics, setNewLyrics] = useState('...')
   const [startX, setStartX] = useState()
   const [dlURL, setDlURL] = useState()
-  const darkmode = useContext(ThemeContext)
 
   const audioRef = useRef()
   const sourceRef = useRef()

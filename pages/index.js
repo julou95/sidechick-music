@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Image from 'next/image'
 import MusicList from '@/components/MusicList/MusicList'
-import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
 import { db } from '@/constants/firebaseConfig'
 import styles from '@/styles/Home.module.scss'
+import { ThemeContext } from '@/constants/themeContext'
 
 const types = [
   'SONG',
@@ -12,9 +12,13 @@ const types = [
 ]
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true)
   const [songs, setSongs] = useState()
-  const [currentSong, setCurrentSong] = useState()
+  const {
+    setCurrentSong,
+    currentSong,
+    isLoading,
+    setIsLoading,
+  } = useContext(ThemeContext)
 
   useEffect(() => {
     db().collection('lyrics').get().then((data) => {
@@ -29,24 +33,6 @@ export default function Home() {
       }, 500)
     })
   }, [])
-
-  const nextSong = (currentId) => {
-    const currentIndex = songs.findIndex(song => song.id === currentId)
-    if (currentIndex + 1 >= songs.length) {
-      setCurrentSong(songs[0])
-    } else {
-      setCurrentSong(songs[currentIndex + 1])
-    }
-  }
-
-  const prevSong = (currentId) => {
-    const currentIndex = songs.findIndex(song => song.id === currentId)
-    if (currentIndex - 1 < 0) {
-      setCurrentSong(songs[songs.length - 1])
-    } else {
-      setCurrentSong(songs[currentIndex - 1])
-    }
-  }
 
   return (
     <>
@@ -63,14 +49,6 @@ export default function Home() {
             currentSong={currentSong}
           />
         )
-      }
-      {
-        currentSong &&
-          <MusicPlayer
-            song={currentSong}
-            prevSong={prevSong}
-            nextSong={nextSong}
-          />
       }
     </>
   )
