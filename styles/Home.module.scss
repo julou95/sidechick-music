@@ -56,8 +56,9 @@
 
 .main {
   max-width: 670px;
-  margin: 0 0.5rem 6rem;
-  padding: 1rem 0.5rem;
+  min-height: calc(100vh - 6rem);
+  margin: 0 0.5rem;
+  padding: 1rem 0.5rem 6rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -75,21 +76,83 @@
   transform: rotate(90deg);
 }
 
-@media screen and (min-width: 701px) {
-  .main, .innerHeader, .innerPlayer {
-    margin: 0 auto;
+.optionsToggle {
+  width: 30px;
+  height: 30px;
+  transition: all 0.2s ease-in;
+  svg {
+    fill: #e7e7e7;
+    transition: all 0.2s ease-in-out;
   }
-  .main {
-    padding: 2rem 1rem;
-    margin-bottom: 6rem;
+}
+
+.showOptions {
+  transform: rotate(90deg);
+  svg {
+    fill:#A63D40;
   }
-  .logo {
-    height: 4rem;
-    width: 4rem;
+}
+
+.optionsWrapper {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 2;
+  top: 80px;
+  right: 0;
+  background-color: #000000e8;
+  overflow: hidden;
+  transition: width 0.3s 0.2s ease;
+}
+
+.optionsInner {
+  opacity: 0;
+  padding: 2rem 1rem;
+  transition: opacity 0.3s ease;
+  max-width: 670px;
+}
+
+.optionsVisible {
+  width: 100%;
+  transition: width 0.3s ease;
+  .optionsInner {
+    opacity: 1;
+    transition: opacity 0.3s 0.2s ease;
   }
-  .title {
-    font-size: 2rem;
+}
+
+
+.menuItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  font-size: 1.2rem;
+  padding: 0.7rem 0.1rem;
+  border-top: 1px solid #e7e7e7;
+  cursor: pointer;
+  &:last-child {
+    border-bottom: 1px solid #e7e7e7;
   }
+  svg {
+    fill: #e7e7e7
+  }
+}
+
+.themeToggle {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+}
+
+.toggleInner {
+  width: 60px;
+  transition: all 0.2s ease-in-out;
+}
+
+.toggleDark {
+  margin-left: -30px;
 }
 
 .themeToggle svg {
@@ -108,4 +171,22 @@
 
 .light {
   background-color: #e7e7e7;
+}
+
+
+@media screen and (min-width: 701px) {
+  .main, .innerHeader, .innerPlayer, .optionsInner {
+    margin: 0 auto;
+  }
+  .main {
+    padding: 2rem 1rem;
+    margin-bottom: 6rem;
+  }
+  .logo {
+    height: 4rem;
+    width: 4rem;
+  }
+  .title {
+    font-size: 2rem;
+  }
 }

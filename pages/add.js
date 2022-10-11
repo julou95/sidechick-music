@@ -1,4 +1,5 @@
 import { useState, useRef, useContext } from 'react'
+import Router from 'next/router'
 import styles from '@/styles/Add.module.scss'
 import { db, storage } from '@/constants/firebaseConfig'
 import { ThemeContext } from '@/constants/themeContext'
@@ -9,6 +10,7 @@ export default function Add() {
   const [hasError, setHasError] = useState(false)
   const [durationStr, setDurationStr] = useState()
   const [fileName, setFileName] = useState()
+  const [isLoading, setIsLoading] = useState(false)
   const songRef = useRef()
   const titleRef = useRef()
   const typeRef = useRef()
@@ -21,21 +23,30 @@ export default function Add() {
     return (new Array(length+1).join(pad)+string).slice(-length);
   }
 
+  const getDateString = () => {
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth()+1;
+    const year = date.getFullYear().toString();
+    return str_pad_left(day, '0', 2)+'.'+str_pad_left(month, '0', 2)+'.'+year.substring(2)
+  }
+
   const save = () => {
+    setIsLoading(true)
     const file = songRef.current.files[0]
     const refValues = [
       titleRef.current.value,
       typeRef.current.value,
       file?.name || '',
-      lyricsRef.current.value,
     ]
 
     const hasEmpty = refValues.some(value => !value);
+
     const date = new Date();
     const day = date.getDate();
     const month = date.getMonth()+1;
     const year = date.getFullYear().toString();
-    const dateStr = str_pad_left(day, '0', 2)+'.'+str_pad_left(month, '0', 2)+'.'+year.substring(2)
+    const dateStr = getDateString()
 
     if (!hasEmpty) {
       storage().ref(file.name).put(file).then((res) => {
@@ -56,7 +67,10 @@ export default function Add() {
           lyricsRef.current.value = ''
           bpmRef.current.value = ''
           noteRef.current.value = ''
-          setHasError(false)
+          setShowModal(true)
+          setTimeout(() => {
+            Router.reload()
+          }, 1000)
         }).catch(err => {
           console.log('LJ - ', 'error', err);
         })
@@ -66,7 +80,6 @@ export default function Add() {
     } else {
       setHasError(true)
     }
-    setShowModal(true)
   }
 
   const loadAudio = () => {
@@ -126,7 +139,7 @@ export default function Add() {
             <input ref={noteRef} type="text" />
           </div>
         </div>
-        <button className={styles.saveButton} onClick={save}>SAVE</button>
+        <button className={styles.saveButton} onClick={save}>{isLoading ? <Icons name="loading" size="30" /> : 'SAVE'}</button>
       </div>
     </>
   )

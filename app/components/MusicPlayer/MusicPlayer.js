@@ -1,7 +1,8 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useContext } from 'react'
 import styles from '@/styles/MusicPlayer.module.scss'
 import Icons from '../Icons/Icons'
 import { db, storage } from '@/constants/firebaseConfig'
+import { ThemeContext } from '@/constants/themeContext'
 
 export default function MusicList({ song, prevSong, nextSong }) {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -12,6 +13,7 @@ export default function MusicList({ song, prevSong, nextSong }) {
   const [newLyrics, setNewLyrics] = useState('...')
   const [startX, setStartX] = useState()
   const [dlURL, setDlURL] = useState()
+  const darkmode = useContext(ThemeContext)
 
   const audioRef = useRef()
   const sourceRef = useRef()
@@ -143,7 +145,7 @@ export default function MusicList({ song, prevSong, nextSong }) {
     <>
       {
         isExpanded &&
-          <div className={styles.info}>
+          <div className={`${styles.info} ${darkmode ? styles.dark : ''}`}>
             <div className={styles.infoInner}>
               <div className={styles.infoHead}>
                 <div className={styles.infoTitle} onClick={toggleInfo}>
