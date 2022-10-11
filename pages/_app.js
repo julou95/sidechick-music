@@ -21,8 +21,6 @@ function MyApp({ Component, pageProps }) {
       const messaging = firebase.messaging();
       console.log({ messaging });
       messaging.onMessage((message) => {
-        console.log('LJ - ', 'message', message);
-        
         const { title, body } = message.notification;
         var options = {
           body,

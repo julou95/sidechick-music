@@ -1,8 +1,23 @@
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+import Icons from '@/components/Icons/Icons'
 import styles from '@/styles/Home.module.scss'
+import { ThemeContext } from '@/constants/themeContext'
 
 export default function DefaultLayout({ children }) {
+  const [darkmode, setDarkmode] = useState(true)
+
+  useEffect(() => {
+    const isDark = JSON.parse(localStorage.getItem('DARK')) || false
+    setDarkmode(isDark)
+  }, [])
+
+  const setDark = (newVal) => {
+    setDarkmode(newVal)
+    localStorage.setItem('DARK', newVal)
+  }
+
   return (
     <>
       <Head>
@@ -20,10 +35,15 @@ export default function DefaultLayout({ children }) {
               Side Chick
             </div>
           </a>
+          <div className={styles.themeToggle} onClick={() => setDark(!darkmode)}>
+            <Icons name={darkmode ? 'dark' : 'light'} size="30" />
+          </div>
         </div>
       </header>
-      <main className={styles.main}>
-        {children}
+      <main className={`${styles.main} ${darkmode ? styles.dark : styles.light}`}>
+        <ThemeContext.Provider value={darkmode}>
+          {children}
+        </ThemeContext.Provider>
       </main>
     </>
   )
