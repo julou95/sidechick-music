@@ -40,7 +40,7 @@ export default function Add() {
           title: titleRef.current.value,
           type: typeRef.current.value,
           media: file.name,
-          text: lyricsRef.current.value,
+          text: lyricsRef.current.value || '...',
           duration: durationStr,
           bpm: bpmRef.current.value || '-',
           note: noteRef.current.value || '-',
@@ -106,7 +106,7 @@ export default function Add() {
           <option value="IDEA">Idea</option>
         </select>
         <label>Lyrics:</label>
-        <textarea ref={lyricsRef} defaultValue="..." />
+        <textarea ref={lyricsRef} />
         <div className={styles.row}>
           <div>
             <label>BPM:</label>
