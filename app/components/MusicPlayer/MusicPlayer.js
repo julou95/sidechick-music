@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import styles from '@/styles/MusicPlayer.module.scss'
 import Icons from '../Icons/Icons'
+import { useRouter } from 'next/router';
 import { db, storage } from '@/constants/firebaseConfig'
 
 export default function MusicList({ song, prevSong, nextSong, darkmode }) {
@@ -12,6 +13,7 @@ export default function MusicList({ song, prevSong, nextSong, darkmode }) {
   const [newLyrics, setNewLyrics] = useState('...')
   const [startX, setStartX] = useState()
   const [dlURL, setDlURL] = useState()
+  const router = useRouter()
 
   const audioRef = useRef()
   const sourceRef = useRef()
@@ -31,6 +33,10 @@ export default function MusicList({ song, prevSong, nextSong, darkmode }) {
       })
     }
   }, [song])
+
+  useEffect(() => {
+    setIsExpanded(false)
+  }, [router.asPath])
 
   const play = () => {
     if (isPlaying) {
